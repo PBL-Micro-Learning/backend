@@ -16,3 +16,7 @@ Content-Type: application/json
     "email": "aryo@mail.com",
     "password": "aryo123"
 }
+
+### Who Am I
+GET http://localhost:3000/api/auth/whoami
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MiwiZW1haWwiOiJhcnlvQG1haWwuY29tIiwibmFtZSI6ImFyeW8iLCJwcm9maWxlX3BpY3R1cmVfdXJsIjpudWxsLCJpYXQiOjE3MTA5OTk3NTB9.j3G9kMM5ShPDMliA99Iw2crHs4Tx_LlaBv9Ji3a2bC4
