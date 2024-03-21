@@ -72,7 +72,7 @@ async function login(req, res, next) {
             });
         }
         delete user.password; // excluede password from user
-        let token = jwt.sign({ id: user.id }, JWT_PRIVATE_KEY);
+        let token = jwt.sign(user, JWT_PRIVATE_KEY);
 
         res.json({
             status: true,
@@ -85,7 +85,19 @@ async function login(req, res, next) {
     }
 }
 
+async function whoami(req, res) {
+    res.json({
+        status: true,
+        message: 'OK',
+        error: null,
+        data: {
+            ...req.user,
+        }
+    });
+}
+
 module.exports = {
     register,
-    login
+    login,
+    whoami
 };
