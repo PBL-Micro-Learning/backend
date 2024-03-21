@@ -27,8 +27,10 @@ jobs:
       - name: Install Prisma CLI
         run: npm install prisma
 
-      - name: Prisma Migrate
-        run: npx prisma migrate deploy
+      - name: Prisma Migrate Deploy
+        run: |
+          export DATABASE_URL="${{ env.DATABASE_URL }}"
+          npx prisma migrate deploy
 
       - name: Deploy to Railway
         run: railway up --service ${{ secrets.RAILWAY_SERVICE_ID }}
