@@ -21,7 +21,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.get('/', function (req, res) {
     res.json({
         status: true,
-        message: 'welcome to fast-parking-system api',
+        message: 'welcome to micro-learning api',
         error: null,
         data: null
     });
