@@ -35,3 +35,13 @@ GET http://localhost:3000/api/courses
 
 ### Courses Detail
 GET http://localhost:3000/api/courses/1
+
+### Lesson Create
+POST http://localhost:3000/api/lessons
+Content-Type: application/json
+
+{
+    "title": "Postgres",
+    "body": "belajar database postgre sql",
+    "course_id": 1
+}
