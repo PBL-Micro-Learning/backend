@@ -160,6 +160,40 @@ paths:
                             description:
                               type: string
                               example: semua tentang sistem informasi
+  /courses/{id}:
+    get:
+      tags:
+        - "Course"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The course ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: Sistem Informasi
+                          description:
+                            type: string
+                            example: semua tentang sistem informasi
 components:
   schemas:
     AnyValue:
