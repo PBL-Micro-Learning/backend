@@ -11,6 +11,8 @@ security:
 paths:
   /auth/register:
     post:
+      tags:
+        - "Auth"
       requestBody:
         required: true
         content:
@@ -45,6 +47,8 @@ paths:
                         type: object
   /auth/login:
     post:
+      tags:
+        - "Auth"
       requestBody:
         required: true
         content:
@@ -75,6 +79,8 @@ paths:
                         type: object
   /auth/whoami:
     get:
+      tags:
+        - "Auth"
       security:
         - bearerAuth: []
       responses:
