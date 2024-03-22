@@ -16,4 +16,11 @@ router.get('/courses/:id', controllers.course.show);
 router.put('/courses/:id', controllers.course.update);
 router.delete('/courses/:id', controllers.course.destroy);
 
+// lesson 
+router.post('/lessons', controllers.lesson.create);
+router.get('/lessons', controllers.lesson.index);
+router.get('/lessons/:id', controllers.lesson.show);
+router.put('/lessons/:id', controllers.lesson.update);
+router.delete('/lessons/:id', controllers.lesson.destroy);
+
 module.exports = router;
