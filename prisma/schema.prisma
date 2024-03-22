@@ -19,6 +19,31 @@ model User {
   password            String?
   name                String?
   profile_picture_url String?
+  gender              Gender?
 
   @@map("users")
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}
+
+model Course {
+  id          Int      @id @default(autoincrement())
+  name        String?
+  description String?
+  lessons     Lesson[]
+
+  @@map("courses")
+}
+
+model Lesson {
+  id        Int     @id @default(autoincrement())
+  title     String?
+  body      String?
+  Course    Course? @relation(fields: [course_id], references: [id])
+  course_id Int?
+
+  @@map("lessons")
 }
