@@ -81,10 +81,61 @@ function destroy() {
 
 }
 
+async function enroll(req, res, next) {
+    try {
+        let { id } = req.params;
+        let course = await prisma.Course.findUnique({ where: { id: Number(id) } });
+        if (!course) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'course not found!',
+                data: null
+            });
+        }
+
+        let exist = await prisma.Enrollment.findFirst({ where: { course_id: course.id, user_id: req.user.id } });
+        if (exist) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'already enrolled!',
+                data: null
+            });
+        }
+
+        let enrollment = await prisma.Enrollment.create({
+            data: {
+                course_id: course.id,
+                user_id: req.user.id
+            }
+        });
+
+        return res.status(201).json({
+            status: true,
+            message: 'OK',
+            error: null,
+            data: null
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function unenroll(req, res, next) {
+    try {
+
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     create,
     index,
     show,
     update,
-    destroy
+    destroy,
+    enroll,
+    unenroll
 };

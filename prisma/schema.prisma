@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,12 +8,15 @@ datasource db {
 }
 
 model User {
-  id                  Int     @id @default(autoincrement())
-  email               String  @unique
+  id                  Int          @id @default(autoincrement())
+  email               String       @unique
   password            String?
   name                String?
   profile_picture_url String?
   gender              Gender?
+  Enrollment          Enrollment[]
+  Like                Like[]
+  Comment             Comment[]
 
   @@map("users")
 }
@@ -30,20 +27,54 @@ enum Gender {
 }
 
 model Course {
-  id          Int      @id @default(autoincrement())
+  id          Int          @id @default(autoincrement())
   name        String?
   description String?
   lessons     Lesson[]
+  Enrollment  Enrollment[]
 
   @@map("courses")
 }
 
 model Lesson {
-  id        Int     @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   title     String?
   body      String?
-  Course    Course? @relation(fields: [course_id], references: [id])
+  Course    Course?   @relation(fields: [course_id], references: [id])
   course_id Int?
+  Like      Like[]
+  Comment   Comment[]
 
   @@map("lessons")
+}
+
+model Enrollment {
+  id        Int     @id @default(autoincrement())
+  Course    Course? @relation(fields: [course_id], references: [id])
+  course_id Int?
+  User      User?   @relation(fields: [user_id], references: [id])
+  user_id   Int?
+
+  @@map("enrollments")
+}
+
+model Like {
+  id        Int     @id @default(autoincrement())
+  Lesson    Lesson? @relation(fields: [lesson_id], references: [id])
+  lesson_id Int?
+  User      User?   @relation(fields: [user_id], references: [id])
+  user_id   Int?
+
+  @@map("likes")
+}
+
+model Comment {
+  id        Int     @id @default(autoincrement())
+  Lesson    Lesson? @relation(fields: [lesson_id], references: [id])
+  lesson_id Int?
+  User      User?   @relation(fields: [user_id], references: [id])
+  user_id   Int?
+  content   String
+
+  @@map("comments")
 }

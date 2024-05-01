@@ -1,26 +1,41 @@
 const express = require('express');
 const router = express.Router();
 
-const controllers = require('../controllers');
-const middlewares = require('../middlewares');
+const { auth, course, lesson } = require('../controllers');
+const { validate } = require('../middlewares');
 
 // auth
-router.post('/auth/register', controllers.auth.register);
-router.post('/auth/login', controllers.auth.login);
-router.get('/auth/whoami', middlewares.validate, controllers.auth.whoami);
+router.post('/auth/register', auth.register);                  // done
+router.post('/auth/login', auth.login);                        // done
+router.get('/auth/whoami', validate, auth.whoami); // done
+
+// user
+router.post('/users/:id/enrollments', auth.login);
 
 // course 
-router.post('/courses', controllers.course.create);
-router.get('/courses', controllers.course.index);
-router.get('/courses/:id', controllers.course.show);
-router.put('/courses/:id', controllers.course.update);
-router.delete('/courses/:id', controllers.course.destroy);
+router.post('/courses', course.create);        // done
+router.get('/courses', course.index);          // done
+router.get('/courses/:id', course.show);       // done
+router.put('/courses/:id', course.update);     // done
+router.delete('/courses/:id', course.destroy); // done
+// enrollment
+router.post('/courses/:id/enroll', validate, course.enroll);
+router.post('/courses/:id/unenroll', validate, course.unenroll);
 
 // lesson 
-router.post('/lessons', controllers.lesson.create);
-router.get('/lessons', controllers.lesson.index);
-router.get('/lessons/:id', controllers.lesson.show);
-router.put('/lessons/:id', controllers.lesson.update);
-router.delete('/lessons/:id', controllers.lesson.destroy);
+router.post('/lessons', lesson.create);        // done
+router.get('/lessons', lesson.index);          // done
+router.get('/lessons/:id', lesson.show);       // done
+router.put('/lessons/:id', lesson.update);     // done
+router.delete('/lessons/:id', lesson.destroy); // done
+// like
+router.get('/lessons/:id/likes', lesson.index); // get lesson likes
+router.post('/lessons/:id/likes', lesson.index); // like lesson
+router.delete('/lessons/:id/likes', lesson.index); // unlike lesson
+// comment
+router.get('/lessons/:id/comments', lesson.index); // get lesson comments
+router.post('/lessons/:id/comments', lesson.index); // comment lesson
+router.put('/lessons/:id/comments/:id', lesson.index); // update comment lesson
+router.delete('/lessons/:id/comments/:id', lesson.index); // remove comment lesson
 
 module.exports = router;
