@@ -170,6 +170,9 @@ paths:
                 description:
                   type: string
                   example: semua tentang sistem informasi
+                cover_url:
+                  type: string
+                  example: https://www.google.com
               required:
                 - name
                 - description
@@ -198,6 +201,17 @@ paths:
     get:
       tags:
         - "Course"
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: search
+          required: false
+        - schema:
+            type: string
+          in: query
+          name: lecturer_id
+          required: false
       responses:
         200:
           description: OK
@@ -256,6 +270,137 @@ paths:
                           description:
                             type: string
                             example: semua tentang sistem informasi
+    put:
+      tags:
+        - "Course"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The course ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Sistem Informasi
+                description:
+                  type: string
+                  example: semua tentang sistem informasi
+                cover_url:
+                  type: string
+                  example: https://www.google.com
+              required:
+                - name
+                - description
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 1
+                          name:
+                            type: string
+                            example: Sistem Informasi
+                          description:
+                            type: string
+                            example: semua tentang sistem informasi
+    delete:
+      tags:
+        - "Course"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The course ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+  /courses/{id}/enroll:
+    post:
+      tags:
+        - "Course"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The course ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+  /courses/{id}/unenroll:
+    delete:
+      tags:
+        - "Course"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The course ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
 components:
   schemas:
     AnyValue:
