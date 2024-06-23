@@ -20,7 +20,7 @@ module.exports = [
   {
     name: 'Irgi Admin',
     email: 'irgi@admin.com',
-    gender: Gender.FEMALE,
+    gender: Gender.MALE,
     password: bcrypt.hashSync('password', 10),
     role: Role.ADMIN
   },
@@ -55,7 +55,7 @@ module.exports = [
   {
     name: 'Irgi Student',
     email: 'irgi@student.com',
-    gender: Gender.FEMALE,
+    gender: Gender.MALE,
     password: bcrypt.hashSync('password', 10),
     role: Role.STUDENT
   },
@@ -92,17 +92,17 @@ module.exports = [
               {
                 title: "What is Programming?",
                 body: "An overview of what programming is and its importance.",
-                video_url: "https://youtu.be/video1"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Basic Syntax",
                 body: "Learn the basic syntax of different programming languages.",
-                video_url: "https://youtu.be/video2"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Writing Your First Program",
                 body: "Step-by-step guide to writing your first program.",
-                video_url: "https://youtu.be/video3"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -113,17 +113,17 @@ module.exports = [
               {
                 title: "Understanding Data Structures",
                 body: "Learn about different data structures.",
-                video_url: "https://youtu.be/video4"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Algorithms 101",
                 body: "Introduction to algorithms and their importance.",
-                video_url: "https://youtu.be/video5"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Complexity Analysis",
                 body: "Learn how to analyze the complexity of algorithms.",
-                video_url: "https://youtu.be/video6"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -134,17 +134,17 @@ module.exports = [
               {
                 title: "Introduction to OOP",
                 body: "What is object-oriented programming?",
-                video_url: "https://youtu.be/video7"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Classes and Objects",
                 body: "Learn about classes and objects in OOP.",
-                video_url: "https://youtu.be/video8"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Inheritance and Polymorphism",
                 body: "Understand inheritance and polymorphism.",
-                video_url: "https://youtu.be/video9"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
@@ -162,17 +162,17 @@ module.exports = [
               {
                 title: "Introduction to HTML",
                 body: "Learn the basics of HTML.",
-                video_url: "https://youtu.be/video10"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Styling with CSS",
                 body: "Learn how to style web pages using CSS.",
-                video_url: "https://youtu.be/video11"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Building a Simple Web Page",
                 body: "Build your first web page using HTML and CSS.",
-                video_url: "https://youtu.be/video12"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -183,17 +183,17 @@ module.exports = [
               {
                 title: "Introduction to JavaScript",
                 body: "Learn the basics of JavaScript.",
-                video_url: "https://youtu.be/video13"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "JavaScript Syntax and Operators",
                 body: "Learn about JavaScript syntax and operators.",
-                video_url: "https://youtu.be/video14"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "DOM Manipulation",
                 body: "Learn how to manipulate the DOM using JavaScript.",
-                video_url: "https://youtu.be/video15"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -204,17 +204,17 @@ module.exports = [
               {
                 title: "Introduction to Responsive Design",
                 body: "What is responsive design?",
-                video_url: "https://youtu.be/video16"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Using Media Queries",
                 body: "Learn how to use media queries for responsive design.",
-                video_url: "https://youtu.be/video17"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Responsive Layouts",
                 body: "Learn how to create responsive layouts.",
-                video_url: "https://youtu.be/video18"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
@@ -232,17 +232,17 @@ module.exports = [
               {
                 title: "What is a Database?",
                 body: "An overview of what databases are and their importance.",
-                video_url: "https://youtu.be/video19"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "SQL Basics",
                 body: "Learn the basics of SQL.",
-                video_url: "https://youtu.be/video20"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Database Design",
                 body: "Learn how to design a database.",
-                video_url: "https://youtu.be/video21"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -253,17 +253,17 @@ module.exports = [
               {
                 title: "Joins and Subqueries",
                 body: "Learn about joins and subqueries in SQL.",
-                video_url: "https://youtu.be/video22"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Stored Procedures",
                 body: "Learn about stored procedures in SQL.",
-                video_url: "https://youtu.be/video23"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Database Optimization",
                 body: "Learn how to optimize databases.",
-                video_url: "https://youtu.be/video24"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -274,17 +274,17 @@ module.exports = [
               {
                 title: "Introduction to NoSQL",
                 body: "Learn the basics of NoSQL databases.",
-                video_url: "https://youtu.be/video25"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Types of NoSQL Databases",
                 body: "Learn about different types of NoSQL databases.",
-                video_url: "https://youtu.be/video26"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Using MongoDB",
                 body: "Learn how to use MongoDB.",
-                video_url: "https://youtu.be/video27"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
@@ -311,17 +311,17 @@ module.exports = [
               {
                 title: "Introduction to Concurrency",
                 body: "Learn the basics of concurrency.",
-                video_url: "https://youtu.be/video28"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Parallel Programming",
                 body: "Learn about parallel programming techniques.",
-                video_url: "https://youtu.be/video29"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Synchronization",
                 body: "Learn how to synchronize concurrent processes.",
-                video_url: "https://youtu.be/video30"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -332,17 +332,17 @@ module.exports = [
               {
                 title: "Introduction to Functional Programming",
                 body: "Learn the basics of functional programming.",
-                video_url: "https://youtu.be/video31"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Higher-Order Functions",
                 body: "Learn about higher-order functions in functional programming.",
-                video_url: "https://youtu.be/video32"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Immutability",
                 body: "Learn about immutability in functional programming.",
-                video_url: "https://youtu.be/video33"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -353,17 +353,17 @@ module.exports = [
               {
                 title: "Introduction to Design Patterns",
                 body: "Learn the basics of design patterns.",
-                video_url: "https://youtu.be/video34"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Creational Patterns",
                 body: "Learn about creational design patterns.",
-                video_url: "https://youtu.be/video35"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Structural Patterns",
                 body: "Learn about structural design patterns.",
-                video_url: "https://youtu.be/video36"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
@@ -381,17 +381,17 @@ module.exports = [
               {
                 title: "What is Machine Learning?",
                 body: "An overview of machine learning and its applications.",
-                video_url: "https://youtu.be/video37"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Supervised Learning",
                 body: "Learn about supervised learning techniques.",
-                video_url: "https://youtu.be/video38"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Unsupervised Learning",
                 body: "Learn about unsupervised learning techniques.",
-                video_url: "https://youtu.be/video39"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -402,17 +402,17 @@ module.exports = [
               {
                 title: "Basics of Neural Networks",
                 body: "Learn the basics of neural networks.",
-                video_url: "https://youtu.be/video40"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Training Neural Networks",
                 body: "Learn how to train neural networks.",
-                video_url: "https://youtu.be/video41"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Deep Learning",
                 body: "Introduction to deep learning.",
-                video_url: "https://youtu.be/video42"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -423,17 +423,17 @@ module.exports = [
               {
                 title: "Evaluation Metrics",
                 body: "Learn about different evaluation metrics for machine learning models.",
-                video_url: "https://youtu.be/video43"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Cross-Validation",
                 body: "Learn how to use cross-validation for model evaluation.",
-                video_url: "https://youtu.be/video44"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Hyperparameter Tuning",
                 body: "Learn how to tune hyperparameters for better model performance.",
-                video_url: "https://youtu.be/video45"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
@@ -451,17 +451,17 @@ module.exports = [
               {
                 title: "What is Cybersecurity?",
                 body: "An overview of cybersecurity and its importance.",
-                video_url: "https://youtu.be/video46"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Common Cyber Threats",
                 body: "Learn about common cyber threats.",
-                video_url: "https://youtu.be/video47"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Protecting Your Systems",
                 body: "Learn how to protect your systems from cyber threats.",
-                video_url: "https://youtu.be/video48"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -472,17 +472,17 @@ module.exports = [
               {
                 title: "Basics of Network Security",
                 body: "Learn the basics of network security.",
-                video_url: "https://youtu.be/video49"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Firewalls and Intrusion Detection Systems",
                 body: "Learn about firewalls and intrusion detection systems.",
-                video_url: "https://youtu.be/video50"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Securing Wireless Networks",
                 body: "Learn how to secure wireless networks.",
-                video_url: "https://youtu.be/video51"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -493,17 +493,17 @@ module.exports = [
               {
                 title: "Basics of Cryptography",
                 body: "Learn the basics of cryptography.",
-                video_url: "https://youtu.be/video52"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Encryption Algorithms",
                 body: "Learn about different encryption algorithms.",
-                video_url: "https://youtu.be/video53"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Digital Signatures",
                 body: "Learn about digital signatures and their importance.",
-                video_url: "https://youtu.be/video54"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
@@ -514,7 +514,7 @@ module.exports = [
   {
     name: 'Irgi Lecturer',
     email: 'irgi@lecturer.com',
-    gender: Gender.FEMALE,
+    gender: Gender.MALE,
     password: bcrypt.hashSync('password', 10),
     role: Role.LECTURER,
     courses: [
@@ -530,17 +530,17 @@ module.exports = [
               {
                 title: "Introduction to SDLC",
                 body: "An overview of the software development life cycle.",
-                video_url: "https://youtu.be/video55"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Requirement Analysis",
                 body: "Learn how to gather and analyze requirements.",
-                video_url: "https://youtu.be/video56"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Design and Architecture",
                 body: "Learn about software design and architecture.",
-                video_url: "https://youtu.be/video57"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -551,17 +551,17 @@ module.exports = [
               {
                 title: "Introduction to Agile",
                 body: "Learn the basics of agile methodologies.",
-                video_url: "https://youtu.be/video58"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Scrum Framework",
                 body: "Learn about the Scrum framework.",
-                video_url: "https://youtu.be/video59"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Kanban",
                 body: "Learn about the Kanban methodology.",
-                video_url: "https://youtu.be/video60"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -572,17 +572,17 @@ module.exports = [
               {
                 title: "Introduction to Testing",
                 body: "Learn the basics of software testing.",
-                video_url: "https://youtu.be/video61"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Types of Testing",
                 body: "Learn about different types of software testing.",
-                video_url: "https://youtu.be/video62"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Automated Testing",
                 body: "Learn about automated testing tools and techniques.",
-                video_url: "https://youtu.be/video63"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
@@ -600,17 +600,17 @@ module.exports = [
               {
                 title: "What is Data Science?",
                 body: "An overview of data science and its applications.",
-                video_url: "https://youtu.be/video64"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Data Wrangling",
                 body: "Learn how to clean and prepare data.",
-                video_url: "https://youtu.be/video65"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Exploratory Data Analysis",
                 body: "Learn how to perform exploratory data analysis.",
-                video_url: "https://youtu.be/video66"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -621,17 +621,17 @@ module.exports = [
               {
                 title: "Descriptive Statistics",
                 body: "Learn about descriptive statistics.",
-                video_url: "https://youtu.be/video67"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Inferential Statistics",
                 body: "Learn about inferential statistics.",
-                video_url: "https://youtu.be/video68"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Hypothesis Testing",
                 body: "Learn how to perform hypothesis testing.",
-                video_url: "https://youtu.be/video69"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -642,17 +642,17 @@ module.exports = [
               {
                 title: "Introduction to Data Visualization",
                 body: "Learn the basics of data visualization.",
-                video_url: "https://youtu.be/video70"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Using Matplotlib",
                 body: "Learn how to create visualizations using Matplotlib.",
-                video_url: "https://youtu.be/video71"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Using Seaborn",
                 body: "Learn how to create visualizations using Seaborn.",
-                video_url: "https://youtu.be/video72"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
@@ -670,17 +670,17 @@ module.exports = [
               {
                 title: "What is AI?",
                 body: "An overview of artificial intelligence and its applications.",
-                video_url: "https://youtu.be/video73"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "History of AI",
                 body: "Learn about the history of artificial intelligence.",
-                video_url: "https://youtu.be/video74"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "AI in Everyday Life",
                 body: "Learn how AI is used in everyday life.",
-                video_url: "https://youtu.be/video75"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -691,17 +691,17 @@ module.exports = [
               {
                 title: "Supervised Learning",
                 body: "Learn about supervised learning techniques in AI.",
-                video_url: "https://youtu.be/video76"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Unsupervised Learning",
                 body: "Learn about unsupervised learning techniques in AI.",
-                video_url: "https://youtu.be/video77"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Reinforcement Learning",
                 body: "Learn about reinforcement learning techniques in AI.",
-                video_url: "https://youtu.be/video78"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -712,17 +712,17 @@ module.exports = [
               {
                 title: "Bias in AI",
                 body: "Learn about bias and fairness in AI.",
-                video_url: "https://youtu.be/video79"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Privacy in AI",
                 body: "Learn about privacy concerns in AI.",
-                video_url: "https://youtu.be/video80"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Future of AI",
                 body: "Learn about the future trends in AI.",
-                video_url: "https://youtu.be/video81"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
@@ -749,17 +749,17 @@ module.exports = [
               {
                 title: "What is Cloud Computing?",
                 body: "An overview of cloud computing and its benefits.",
-                video_url: "https://youtu.be/video82"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Cloud Service Models",
                 body: "Learn about IaaS, PaaS, and SaaS.",
-                video_url: "https://youtu.be/video83"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Cloud Deployment Models",
                 body: "Learn about public, private, and hybrid clouds.",
-                video_url: "https://youtu.be/video84"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -770,17 +770,17 @@ module.exports = [
               {
                 title: "Introduction to Cloud Security",
                 body: "Learn the basics of cloud security.",
-                video_url: "https://youtu.be/video85"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Security Best Practices",
                 body: "Learn about best practices for securing cloud environments.",
-                video_url: "https://youtu.be/video86"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Compliance in the Cloud",
                 body: "Learn about compliance requirements for cloud services.",
-                video_url: "https://youtu.be/video87"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -791,17 +791,17 @@ module.exports = [
               {
                 title: "Introduction to Cloud Architecture",
                 body: "Learn the basics of cloud architecture.",
-                video_url: "https://youtu.be/video88"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Designing Scalable Applications",
                 body: "Learn how to design applications that scale in the cloud.",
-                video_url: "https://youtu.be/video89"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Cost Management in the Cloud",
                 body: "Learn how to manage costs effectively in the cloud.",
-                video_url: "https://youtu.be/video90"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
@@ -819,17 +819,17 @@ module.exports = [
               {
                 title: "What is Blockchain?",
                 body: "An overview of blockchain and how it works.",
-                video_url: "https://youtu.be/video91"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Blockchain Components",
                 body: "Learn about the key components of blockchain technology.",
-                video_url: "https://youtu.be/video92"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Blockchain Use Cases",
                 body: "Explore various use cases of blockchain technology.",
-                video_url: "https://youtu.be/video93"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -840,17 +840,17 @@ module.exports = [
               {
                 title: "Introduction to Cryptocurrencies",
                 body: "Learn the basics of cryptocurrencies.",
-                video_url: "https://youtu.be/video94"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Bitcoin and Ethereum",
                 body: "Learn about the two most popular cryptocurrencies.",
-                video_url: "https://youtu.be/video95"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Investing in Cryptocurrencies",
                 body: "Learn about investing in cryptocurrencies and the risks involved.",
-                video_url: "https://youtu.be/video96"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -861,17 +861,17 @@ module.exports = [
               {
                 title: "Introduction to Smart Contracts",
                 body: "Learn the basics of smart contracts.",
-                video_url: "https://youtu.be/video97"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Creating Smart Contracts",
                 body: "Learn how to create and deploy smart contracts.",
-                video_url: "https://youtu.be/video98"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Smart Contract Security",
                 body: "Learn about security considerations for smart contracts.",
-                video_url: "https://youtu.be/video99"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
@@ -889,17 +889,17 @@ module.exports = [
               {
                 title: "What is IoT?",
                 body: "An overview of IoT and its applications.",
-                video_url: "https://youtu.be/video100"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "IoT Architecture",
                 body: "Learn about the architecture of IoT systems.",
-                video_url: "https://youtu.be/video101"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "IoT Communication Protocols",
                 body: "Learn about communication protocols used in IoT.",
-                video_url: "https://youtu.be/video102"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -910,17 +910,17 @@ module.exports = [
               {
                 title: "Introduction to IoT Security",
                 body: "Learn the basics of IoT security.",
-                video_url: "https://youtu.be/video103"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Common IoT Vulnerabilities",
                 body: "Learn about common vulnerabilities in IoT systems.",
-                video_url: "https://youtu.be/video104"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Securing IoT Devices",
                 body: "Learn how to secure IoT devices.",
-                video_url: "https://youtu.be/video105"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           },
@@ -931,17 +931,236 @@ module.exports = [
               {
                 title: "Smart Homes",
                 body: "Learn about IoT applications in smart homes.",
-                video_url: "https://youtu.be/video106"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "Industrial IoT",
                 body: "Learn about IoT applications in industrial settings.",
-                video_url: "https://youtu.be/video107"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               },
               {
                 title: "IoT in Healthcare",
                 body: "Learn about IoT applications in healthcare.",
-                video_url: "https://youtu.be/video108"
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    name: 'Nur Lecturer',
+    email: 'nur@lecturer.com',
+    gender: Gender.FEMALE,
+    password: bcrypt.hashSync('password', 10),
+    role: Role.LECTURER,
+    courses: [
+      {
+        name: "Data Structures and Algorithms",
+        description: "Introduction to fundamental data structures and algorithms.",
+        cover_url: "https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&w=800",
+        lessons: [
+          {
+            title: "Introduction to Data Structures",
+            description: "Learn the basics of data structures.",
+            contents: [
+              {
+                title: "Arrays and Linked Lists",
+                body: "Introduction to arrays and linked lists.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Stacks and Queues",
+                body: "Learn about stacks and queues.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Trees",
+                body: "Learn about tree data structures.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              }
+            ]
+          },
+          {
+            title: "Sorting and Searching Algorithms",
+            description: "Learn about common sorting and searching algorithms.",
+            contents: [
+              {
+                title: "Bubble Sort and Insertion Sort",
+                body: "Introduction to bubble sort and insertion sort.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Merge Sort and Quick Sort",
+                body: "Learn about merge sort and quick sort.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Binary Search",
+                body: "Learn about binary search algorithm.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              }
+            ]
+          },
+          {
+            title: "Advanced Data Structures",
+            description: "Explore advanced data structures.",
+            contents: [
+              {
+                title: "Graphs",
+                body: "Learn about graph data structures.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Hash Tables",
+                body: "Learn about hash tables.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Heap Data Structure",
+                body: "Introduction to heap data structure.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: "Software Architecture",
+        description: "Introduction to software architecture principles and design patterns.",
+        cover_url: "https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&w=800",
+        lessons: [
+          {
+            title: "Introduction to Software Architecture",
+            description: "Learn the basics of software architecture.",
+            contents: [
+              {
+                title: "Architectural Styles",
+                body: "Introduction to different architectural styles.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Design Patterns",
+                body: "Learn about common design patterns.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Architectural Patterns",
+                body: "Learn about architectural patterns.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              }
+            ]
+          },
+          {
+            title: "Microservices Architecture",
+            description: "Learn about microservices architecture.",
+            contents: [
+              {
+                title: "Introduction to Microservices",
+                body: "Learn the basics of microservices architecture.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Service Discovery and Communication",
+                body: "Learn about service discovery and communication in microservices.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Scalability and Resilience",
+                body: "Learn how microservices achieve scalability and resilience.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              }
+            ]
+          },
+          {
+            title: "Designing Scalable Systems",
+            description: "Learn how to design scalable systems.",
+            contents: [
+              {
+                title: "Scalability Concepts",
+                body: "Introduction to scalability concepts.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Load Balancing",
+                body: "Learn about load balancing techniques.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Caching Strategies",
+                body: "Learn about caching strategies for performance optimization.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        name: "Web Development",
+        description: "Introduction to web development technologies and frameworks.",
+        cover_url: "https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&w=800",
+        lessons: [
+          {
+            title: "Introduction to Web Development",
+            description: "Learn the basics of web development.",
+            contents: [
+              {
+                title: "HTML and CSS",
+                body: "Introduction to HTML and CSS.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "JavaScript Basics",
+                body: "Learn the basics of JavaScript programming.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Responsive Web Design",
+                body: "Learn about responsive web design.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              }
+            ]
+          },
+          {
+            title: "Backend Development",
+            description: "Learn about backend development technologies.",
+            contents: [
+              {
+                title: "Introduction to Node.js",
+                body: "Learn the basics of Node.js.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "RESTful APIs",
+                body: "Learn about designing RESTful APIs.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Database Integration",
+                body: "Learn how to integrate databases with web applications.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              }
+            ]
+          },
+          {
+            title: "Frontend Frameworks",
+            description: "Explore popular frontend frameworks.",
+            contents: [
+              {
+                title: "Introduction to React",
+                body: "Learn the basics of React framework.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Angular Fundamentals",
+                body: "Learn about fundamental concepts of Angular framework.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
+              },
+              {
+                title: "Vue.js Essentials",
+                body: "Learn essential concepts of Vue.js framework.",
+                video_url: "https://www.youtube.com/watch?v=SxQEiq4NZqk"
               }
             ]
           }
