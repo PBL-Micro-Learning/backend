@@ -184,7 +184,7 @@ async function enroll(req, res, next) {
             });
         }
 
-        let exist = await prisma.Enrollment.findFirst({ where: { course_id: course.id, user_id: req.user.id } });
+        let exist = await prisma.enrollment.findFirst({ where: { course_id: course.id, user_id: req.user.id } });
         if (exist) {
             return res.status(400).json({
                 status: false,
@@ -194,7 +194,7 @@ async function enroll(req, res, next) {
             });
         }
 
-        let enrollment = await prisma.Enrollment.create({
+        let enrollment = await prisma.enrollment.create({
             data: {
                 course_id: course.id,
                 user_id: req.user.id
@@ -205,7 +205,7 @@ async function enroll(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: null
+            data: enrollment
         });
     } catch (err) {
         next(err);
@@ -214,7 +214,26 @@ async function enroll(req, res, next) {
 
 async function unenroll(req, res, next) {
     try {
+        let { id } = req.params;
 
+        let exist = await prisma.enrollment.findFirst({ where: { course_id: course.id, user_id: req.user.id } });
+        if (!exist) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'not enrolled!',
+                data: null
+            });
+        }
+
+        await prisma.enrollment.delete({ where: { course_id: course.id, user_id: req.user.id } });
+
+        return res.status(200).json({
+            status: true,
+            message: 'OK',
+            error: null,
+            data: null
+        });
     } catch (err) {
         next(err);
     }
