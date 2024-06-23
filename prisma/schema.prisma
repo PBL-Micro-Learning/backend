@@ -8,15 +8,13 @@ datasource db {
 }
 
 model User {
-  id                  Int          @id @default(autoincrement())
-  email               String       @unique
+  id                  Int     @id @default(autoincrement())
+  email               String  @unique
   password            String?
   name                String?
   profile_picture_url String?
   gender              Gender?
-  Enrollment          Enrollment[]
-  Like                Like[]
-  Comment             Comment[]
+  role                Role?   @default(STUDENT)
 
   @@map("users")
 }
@@ -26,54 +24,61 @@ enum Gender {
   FEMALE
 }
 
+enum Role {
+  ADMIN
+  STUDENT
+  LECTURER
+}
+
 model Course {
-  id          Int          @id @default(autoincrement())
-  name        String?
+  id          Int     @id @default(autoincrement())
+  name        String
   description String?
-  lessons     Lesson[]
-  Enrollment  Enrollment[]
+  cover_url   String?
+  lecturer_id Int
 
   @@map("courses")
 }
 
 model Lesson {
-  id        Int       @id @default(autoincrement())
-  title     String?
-  body      String?
-  Course    Course?   @relation(fields: [course_id], references: [id])
-  course_id Int?
-  Like      Like[]
-  Comment   Comment[]
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+  course_id   Int
 
   @@map("lessons")
 }
 
-model Enrollment {
+model Content {
   id        Int     @id @default(autoincrement())
-  Course    Course? @relation(fields: [course_id], references: [id])
-  course_id Int?
-  User      User?   @relation(fields: [user_id], references: [id])
-  user_id   Int?
+  title     String
+  body      String?
+  video_url String?
+  lesson_id Int
+
+  @@map("contents")
+}
+
+model Enrollment {
+  id        Int @id @default(autoincrement())
+  course_id Int
+  user_id   Int
 
   @@map("enrollments")
 }
 
 model Like {
-  id        Int     @id @default(autoincrement())
-  Lesson    Lesson? @relation(fields: [lesson_id], references: [id])
-  lesson_id Int?
-  User      User?   @relation(fields: [user_id], references: [id])
-  user_id   Int?
+  id        Int @id @default(autoincrement())
+  lesson_id Int
+  user_id   Int
 
   @@map("likes")
 }
 
 model Comment {
-  id        Int     @id @default(autoincrement())
-  Lesson    Lesson? @relation(fields: [lesson_id], references: [id])
-  lesson_id Int?
-  User      User?   @relation(fields: [user_id], references: [id])
-  user_id   Int?
+  id        Int    @id @default(autoincrement())
+  lesson_id Int
+  user_id   Int
   content   String
 
   @@map("comments")

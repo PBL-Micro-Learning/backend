@@ -58,10 +58,10 @@ paths:
               properties:
                 email:
                   type: string
-                  example: aryo@mail.com
+                  example: naura@admin.com
                 password:
                   type: string
-                  example: aryo123
+                  example: password
               required:
                 - email
                 - password
