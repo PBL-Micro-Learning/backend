@@ -56,7 +56,7 @@ async function create(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: { content }
+            data: content
         });
     } catch (err) {
         next(err);
@@ -155,7 +155,7 @@ async function update(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: { content }
+            data: content
         });
     } catch (err) {
         next(err);

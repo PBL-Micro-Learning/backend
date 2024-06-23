@@ -32,7 +32,7 @@ async function create(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: { course }
+            data: course
         });
     } catch (err) {
         next(err);
@@ -56,13 +56,13 @@ async function index(req, res, next) {
             filter.where = { ...filter.where, lecturer_id: Number(lecturer_id) };
         }
 
-        const courses = await prisma.course.findMany(filter);
+        let courses = await prisma.course.findMany(filter);
 
         res.json({
             status: true,
             message: 'OK',
             error: null,
-            data: { courses }
+            data: courses
         });
     } catch (err) {
         next(err);
@@ -85,7 +85,7 @@ async function show(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: { course }
+            data: course
         });
     } catch (err) {
         next(err);
@@ -131,7 +131,7 @@ async function update() {
             status: true,
             message: 'OK',
             error: null,
-            data: { course }
+            data: course
         });
     } catch (error) {
         next(err);

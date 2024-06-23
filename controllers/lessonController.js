@@ -46,7 +46,7 @@ async function create(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: { lesson }
+            data: lesson
         });
     } catch (err) {
         next(err);
@@ -77,12 +77,12 @@ async function index(req, res, next) {
 async function show(req, res, next) {
     try {
         let { id } = req.params;
-        let course = await prisma.lesson.findUnique({ where: { id: Number(id) } });
-        if (!course) {
+        let lesson = await prisma.lesson.findUnique({ where: { id: Number(id) } });
+        if (!lesson) {
             return res.status(400).json({
                 status: false,
                 message: 'Bad Request',
-                error: 'course not found!',
+                error: 'lesson not found!',
                 data: null
             });
         }
@@ -91,7 +91,7 @@ async function show(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: course
+            data: lesson
         });
     } catch (err) {
         next(err);
@@ -137,7 +137,7 @@ async function update(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: { lesson }
+            data: lesson
         });
     } catch (err) {
         next(err);
