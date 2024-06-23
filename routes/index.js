@@ -1,15 +1,17 @@
 const express = require('express');
 const router = express.Router();
 
-const { auth, course, lesson } = require('../controllers');
+const { auth, user, course, lesson } = require('../controllers');
 const { validate } = require('../middlewares');
 
 // auth
-router.post('/auth/register', auth.register);                  // done
 router.post('/auth/login', auth.login);                        // done
 router.get('/auth/whoami', validate, auth.whoami); // done
 
 // user
+router.post('/users', user.create);
+router.get('/users', user.index);
+router.get('/users/:id', user.show);
 router.post('/users/:id/enrollments', auth.login);
 
 // course 
