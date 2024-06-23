@@ -188,16 +188,6 @@ paths:
                     properties:
                       data:
                         type: object
-                        properties:
-                          id:
-                            type: integer
-                            example: 1
-                          name:
-                            type: string
-                            example: Sistem Informasi
-                          description:
-                            type: string
-                            example: semua tentang sistem informasi
     get:
       tags:
         - "Course"
@@ -223,19 +213,7 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: array
-                        items:
-                          type: object
-                          properties:
-                            id:
-                              type: integer
-                              example: 1
-                            name:
-                              type: string
-                              example: Sistem Informasi
-                            description:
-                              type: string
-                              example: semua tentang sistem informasi
+                        type: object
   /courses/{id}:
     get:
       tags:
@@ -260,16 +238,6 @@ paths:
                     properties:
                       data:
                         type: object
-                        properties:
-                          id:
-                            type: integer
-                            example: 1
-                          name:
-                            type: string
-                            example: Sistem Informasi
-                          description:
-                            type: string
-                            example: semua tentang sistem informasi
     put:
       tags:
         - "Course"
@@ -314,16 +282,6 @@ paths:
                     properties:
                       data:
                         type: object
-                        properties:
-                          id:
-                            type: integer
-                            example: 1
-                          name:
-                            type: string
-                            example: Sistem Informasi
-                          description:
-                            type: string
-                            example: semua tentang sistem informasi
     delete:
       tags:
         - "Course"
@@ -389,6 +347,326 @@ paths:
             type: integer
             minimum: 1
           description: The course ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+  /lessons:
+    post:
+      tags:
+        - "Lesson"
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                course_id:
+                  type: integer
+                  example: 130
+                title:
+                  type: string
+                  example: Pengenalan Sistem Informasi
+                description:
+                  type: string
+                  example: Pengenalan Sistem Informasi
+              required:
+                - course_id
+                - title
+                - description
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+    get:
+      tags:
+        - "Lesson"
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: course_id
+          required: false
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 1
+                            title:
+                              type: string
+                              example: Pengenalan Sistem Informasi
+                            description:
+                              type: string
+                              example: Pengenalan Sistem Informasi
+  /lessons/{id}:
+    get:
+      tags:
+        - "Lesson"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The lesson ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+    put:
+      tags:
+        - "Lesson"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          example: 375
+          schema:
+            type: integer
+          description: The lesson ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Pengenalan Sistem Informasi
+                description:
+                  type: string
+                  example: Pengenalan Sistem Informasi
+              required:
+                - title
+                - description
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+    delete:
+      tags:
+        - "Lesson"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The lesson ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+  /contents:
+    post:
+      tags:
+        - "Content"
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                lesson_id:
+                  type: integer
+                  example: 1
+                title:
+                  type: string
+                  example: Pengenalan Sistem Informasi
+                body:
+                  type: string
+                  example: Pengenalan Sistem Informasi
+                video_url:
+                  type: string
+                  example: https://www.google.com
+              required:
+                - lesson_id
+                - title
+                - body
+                - video_url
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+    get:
+      tags:
+        - "Content"
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: lesson_id
+          required: false
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
+  /contents/{id}:
+    get:
+      tags:
+        - "Content"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The content ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+    put:
+      tags:
+        - "Content"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The content ID
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Pengenalan Sistem Informasi
+                body:
+                  type: string
+                  example: Pengenalan Sistem Informasi
+                video_url:
+                  type: string
+                  example: https://www.google.com
+              required:
+                - title
+                - body
+                - video_url
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+    delete:
+      tags:
+        - "Content"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The content ID
       responses:
         200:
           description: OK

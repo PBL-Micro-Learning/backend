@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { auth, user, course, lesson } = require('../controllers');
+const { auth, user, course, lesson, content } = require('../controllers');
 const { validate, isAdmin, isLecturer, isStudent } = require('../middlewares');
 
 // auth
@@ -30,6 +30,15 @@ router.get('/lessons', validate, lesson.index);          // done
 router.get('/lessons/:id', validate, lesson.show);       // done
 router.put('/lessons/:id', validate, isLecturer, lesson.update);     // done
 router.delete('/lessons/:id', validate, isLecturer, lesson.destroy); // done
+
+// content
+router.post('/contents', validate, isLecturer, content.create);        // done
+router.get('/contents', validate, content.index);          // done
+router.get('/contents/:id', validate, content.show);       // done
+router.put('/contents/:id', validate, isLecturer, content.update);     // done
+router.delete('/contents/:id', validate, isLecturer, content.destroy); // done
+
+
 // like
 router.get('/lessons/:id/likes', lesson.index); // get lesson likes
 router.post('/lessons/:id/likes', lesson.index); // like lesson

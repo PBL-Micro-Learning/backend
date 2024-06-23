@@ -3,22 +3,32 @@ const prisma = new PrismaClient();
 
 async function create(req, res, next) {
     try {
-        let { title, description, course_id } = req.body;
-        if (!title || !description || !course_id) {
+        let { title, body, video_url, lesson_id } = req.body;
+        if (!title || !body || !video_url || !lesson_id) {
             return res.status(400).json({
                 status: false,
                 message: 'Bad Request',
-                error: 'title, description and course_id are required!',
+                error: 'title, body, video_url and lesson_id are required!',
                 data: null
             });
         }
 
-        let course = await prisma.course.findFirst({ where: { id: Number(course_id) } });
+        let lesson = await prisma.lesson.findFirst({ where: { id: Number(lesson_id) } });
+        if (!lesson) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'lesson not found!',
+                data: null
+            });
+        }
+
+        let course = await prisma.course.findFirst({ where: { id: lesson.course_id } });
         if (!course) {
             return res.status(400).json({
                 status: false,
                 message: 'Bad Request',
-                error: 'course_id not found!',
+                error: 'course not found!',
                 data: null
             });
         }
@@ -31,22 +41,22 @@ async function create(req, res, next) {
             });
         }
 
-        let exist = await prisma.lesson.findFirst({ where: { title, course_id: course.id } });
+        let exist = await prisma.content.findFirst({ where: { title, lesson_id: lesson.id } });
         if (exist) {
             return res.status(400).json({
                 status: false,
                 message: 'Bad Request',
-                error: 'lesson title is already used!',
+                error: 'content title is already used!',
                 data: null
             });
         }
 
-        let lesson = await prisma.lesson.create({ data: { title, description, course_id: course.id } });
-        res.json({
+        let content = await prisma.content.create({ data: { title, body, video_url, lesson_id: lesson.id } });
+        res.status(201).json({
             status: true,
             message: 'OK',
             error: null,
-            data: { lesson }
+            data: { content }
         });
     } catch (err) {
         next(err);
@@ -55,19 +65,18 @@ async function create(req, res, next) {
 
 async function index(req, res, next) {
     try {
-        let { course_id } = req.query;
+        let { lesson_id } = req.query;
         let filter = {};
-        if (course_id) {
-            filter.where = { course_id: Number(course_id) };
+        if (lesson_id) {
+            filter.where = { lesson_id: Number(lesson_id) };
         }
 
-        let lessons = await prisma.lesson.findMany(filter);
-
+        let contents = await prisma.lesson.findMany(filter);
         res.json({
             status: true,
             message: 'OK',
             error: null,
-            data: lessons
+            data: contents
         });
     } catch (err) {
         next(err);
@@ -77,12 +86,12 @@ async function index(req, res, next) {
 async function show(req, res, next) {
     try {
         let { id } = req.params;
-        let course = await prisma.lesson.findUnique({ where: { id: Number(id) } });
-        if (!course) {
+        let content = await prisma.content.findUnique({ where: { id: Number(id) } });
+        if (!content) {
             return res.status(400).json({
                 status: false,
                 message: 'Bad Request',
-                error: 'course not found!',
+                error: 'content not found!',
                 data: null
             });
         }
@@ -91,7 +100,7 @@ async function show(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: course
+            data: content
         });
     } catch (err) {
         next(err);
@@ -101,9 +110,19 @@ async function show(req, res, next) {
 async function update(req, res, next) {
     try {
         let { id } = req.params;
-        let { title, body } = req.body;
+        let { title, body, video_url } = req.body;
 
-        let lesson = await prisma.lesson.findUnique({ where: { id: Number(id) } });
+        let content = await prisma.content.findUnique({ where: { id: Number(id) } });
+        if (!content) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'content not found!',
+                data: null
+            });
+        }
+
+        let lesson = await prisma.lesson.findFirst({ where: { id: content.lesson_id } });
         if (!lesson) {
             return res.status(400).json({
                 status: false,
@@ -131,13 +150,12 @@ async function update(req, res, next) {
             });
         }
 
-        // update
-        lesson = await prisma.lesson.update({ where: { id: lesson.id }, data: { title, body } });
+        content = await prisma.content.update({ where: { id: content.id }, data: { title, body, video_url } });
         res.json({
             status: true,
             message: 'OK',
             error: null,
-            data: { lesson }
+            data: { content }
         });
     } catch (err) {
         next(err);
@@ -147,7 +165,17 @@ async function update(req, res, next) {
 async function destroy(req, res, next) {
     try {
         let { id } = req.params;
-        let lesson = await prisma.lesson.findUnique({ where: { id: Number(id) } });
+        let content = await prisma.content.findUnique({ where: { id: Number(id) } });
+        if (!content) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'content not found!',
+                data: null
+            });
+        }
+
+        let lesson = await prisma.lesson.findFirst({ where: { id: content.lesson_id } });
         if (!lesson) {
             return res.status(400).json({
                 status: false,
@@ -175,8 +203,8 @@ async function destroy(req, res, next) {
             });
         }
 
-        await prisma.lesson.delete({ where: { id: lesson.id } });
-        return res.json({
+        await prisma.content.delete({ where: { id: content.id } });
+        res.json({
             status: true,
             message: 'OK',
             error: null,
