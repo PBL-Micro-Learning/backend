@@ -4,8 +4,8 @@ info:
   description: PBL Micro Learning
   version: 1.0.0
 servers:
-  - url: http://localhost:3000/api
   - url: https://pbl-micro-learling.up.railway.app/api
+  - url: http://localhost:3000/api
 security:
   - bearerAuth: []
 paths:
