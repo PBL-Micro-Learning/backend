@@ -44,27 +44,18 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 146
                           email:
                             type: string
-                            example: naura@student.com
                           name:
                             type: string
-                            example: Naura Student
                           profile_picture_url:
                             type: string
-                            nullable: true
-                            example: null
                           gender:
                             type: string
-                            example: FEMALE
                           role:
                             type: string
-                            example: STUDENT
                           token:
                             type: string
-                            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQ2LCJlbWFpbCI6Im5hdXJhQHN0dWRlbnQuY29tIiwibmFtZSI6Ik5hdXJhIFN0dWRlbnQiLCJwcm9maWxlX3BpY3R1cmVfdXJsIjpudWxsLCJnZW5kZXIiOiJGRU1BTEUiLCJyb2xlIjoiU1RVREVOVCIsImlhdCI6MTcxOTE5OTIxMX0.EWN6ct4JiC912QWJiJ0wU8_Bv80B7FCwRhSJvzf8r74"
-                          
   /auth/whoami:
     get:
       tags:
@@ -86,23 +77,16 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 146
                           email:
                             type: string
-                            example: naura@student.com
                           name:
                             type: string
-                            example: Naura Student
                           profile_picture_url:
                             type: string
-                            nullable: true
-                            example: null
                           gender:
                             type: string
-                            example: FEMALE
                           role:
                             type: string
-                            example: STUDENT
   /users:
     post:
       tags:
@@ -148,23 +132,16 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 154
                           email:
                             type: string
-                            example: nayla@test.com
                           name:
                             type: string
-                            example: Nayla Test
                           profile_picture_url:
                             type: string
-                            nullable: true
-                            example: null
                           gender:
                             type: string
-                            example: FEMALE
                           role:
                             type: string
-                            example: STUDENT
     get:
       tags:
         - "User"
@@ -197,23 +174,17 @@ paths:
                           properties:
                             id:
                               type: integer
-                              example: 154
                             email:
                               type: string
                               example: nayla@test.com
                             name:
                               type: string
-                              example: Nayla Test
                             profile_picture_url:
                               type: string
-                              nullable: true
-                              example: null
                             gender:
                               type: string
-                              example: FEMALE
                             role:
                               type: string
-                              example: STUDENT
   /users/{id}:
     get:
       tags:
@@ -240,23 +211,16 @@ paths:
                         properties:
                           id:
                             type: integer
-                            example: 154
                           email:
                             type: string
-                            example: nayla@test.com
                           name:
                             type: string
-                            example: Nayla Test
                           profile_picture_url:
                             type: string
-                            nullable: true
-                            example: null
                           gender:
                             type: string
-                            example: FEMALE
                           role:
                             type: string
-                            example: STUDENT
   /courses:
     post:
       tags:
@@ -283,7 +247,7 @@ paths:
                 - name
                 - description
       responses:
-        200:
+        201:
           description: OK
           content:
             application/json:
@@ -294,6 +258,18 @@ paths:
                     properties:
                       data:
                         type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          description:
+                            type: string
+                          cover_url:
+                            type: string
+                            format: uri
+                          lecturer_id:
+                            type: integer
     get:
       tags:
         - "Course"
@@ -319,7 +295,26 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: object
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            description:
+                              type: string
+                            cover_url:
+                              type: string
+                              format: uri
+                            lecturer:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                name:
+                                  type: string
   /courses/{id}:
     get:
       tags:
@@ -344,6 +339,50 @@ paths:
                     properties:
                       data:
                         type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          description:
+                            type: string
+                          cover_url:
+                            type: string
+                            format: uri
+                          lecturer:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                          lessons:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                title:
+                                  type: string
+                                description:
+                                  type: string
+                                course_id:
+                                  type: integer
+                                contents:
+                                  type: array
+                                  items:
+                                    type: object
+                                    properties:
+                                      id:
+                                        type: integer
+                                      title:
+                                        type: string
+                                      body:
+                                        type: string
+                                      video_url:
+                                        type: string
+                                        format: uri
     put:
       tags:
         - "Course"
@@ -388,6 +427,18 @@ paths:
                     properties:
                       data:
                         type: object
+                        properties:
+                          id:
+                            type: integer
+                          name:
+                            type: string
+                          description:
+                            type: string
+                          cover_url:
+                            type: string
+                            format: uri
+                          lecturer_id:
+                            type: integer
     delete:
       tags:
         - "Course"
@@ -416,7 +467,7 @@ paths:
   /courses/{id}/enroll:
     post:
       tags:
-        - "Course"
+        - "Course Enrollment"
       security:
         - bearerAuth: []
       parameters:
@@ -442,7 +493,7 @@ paths:
   /courses/{id}/unenroll:
     delete:
       tags:
-        - "Course"
+        - "Course Enrollment"
       security:
         - bearerAuth: []
       parameters:
@@ -503,6 +554,7 @@ paths:
                     properties:
                       data:
                         type: object
+
     get:
       tags:
         - "Lesson"

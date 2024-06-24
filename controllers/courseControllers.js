@@ -28,7 +28,7 @@ async function create(req, res, next) {
                 name, description, cover_url, lecturer_id: req.user.id
             }
         });
-        res.json({
+        res.status(201).json({
             status: true,
             message: 'OK',
             error: null,
@@ -54,7 +54,7 @@ async function index(req, res, next) {
         WHERE 1=1`;
 
         if (search) {
-            query += ` AND (courses.name ILIKE ${'%' + search + '%'} OR courses.description ILIKE ${'%' + search + '%'})`;
+            query += ` AND (courses.name ILIKE '%${search}%' OR courses.description ILIKE '%${search}%')`;
         }
         if (lecturer_id) {
             query += ` AND courses.lecturer_id = ${parseInt(lecturer_id, 10)}`;
@@ -118,6 +118,15 @@ async function show(req, res, next) {
         WHERE
             courses.id = ${Number(id)};`);
 
+        if (!course.length) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'course not found!',
+                data: null
+            });
+        }
+
         const coursesMap = new Map();
         const lessonsMap = new Map();
         course.forEach(item => {
@@ -169,14 +178,14 @@ async function show(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: response
+            data: response[0]
         });
     } catch (err) {
         next(err);
     }
 }
 
-async function update() {
+async function update(req, res, next) {
     try {
         let { id } = req.params;
         let { name, description, cover_url } = req.body;
@@ -222,7 +231,7 @@ async function update() {
     }
 }
 
-async function destroy() {
+async function destroy(req, res, next) {
     try {
         let { id } = req.params;
         let course = await prisma.course.findUnique({ where: { id: Number(id) } });
