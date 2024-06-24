@@ -41,6 +41,30 @@ paths:
                     properties:
                       data:
                         type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 146
+                          email:
+                            type: string
+                            example: naura@student.com
+                          name:
+                            type: string
+                            example: Naura Student
+                          profile_picture_url:
+                            type: string
+                            nullable: true
+                            example: null
+                          gender:
+                            type: string
+                            example: FEMALE
+                          role:
+                            type: string
+                            example: STUDENT
+                          token:
+                            type: string
+                            example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTQ2LCJlbWFpbCI6Im5hdXJhQHN0dWRlbnQuY29tIiwibmFtZSI6Ik5hdXJhIFN0dWRlbnQiLCJwcm9maWxlX3BpY3R1cmVfdXJsIjpudWxsLCJnZW5kZXIiOiJGRU1BTEUiLCJyb2xlIjoiU1RVREVOVCIsImlhdCI6MTcxOTE5OTIxMX0.EWN6ct4JiC912QWJiJ0wU8_Bv80B7FCwRhSJvzf8r74"
+                          
   /auth/whoami:
     get:
       tags:
@@ -59,6 +83,26 @@ paths:
                     properties:
                       data:
                         type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 146
+                          email:
+                            type: string
+                            example: naura@student.com
+                          name:
+                            type: string
+                            example: Naura Student
+                          profile_picture_url:
+                            type: string
+                            nullable: true
+                            example: null
+                          gender:
+                            type: string
+                            example: FEMALE
+                          role:
+                            type: string
+                            example: STUDENT
   /users:
     post:
       tags:
@@ -90,7 +134,7 @@ paths:
                   type: string
                   example: password
       responses:
-        200:
+        201:
           description: OK
           content:
             application/json:
@@ -101,6 +145,26 @@ paths:
                     properties:
                       data:
                         type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 154
+                          email:
+                            type: string
+                            example: nayla@test.com
+                          name:
+                            type: string
+                            example: Nayla Test
+                          profile_picture_url:
+                            type: string
+                            nullable: true
+                            example: null
+                          gender:
+                            type: string
+                            example: FEMALE
+                          role:
+                            type: string
+                            example: STUDENT
     get:
       tags:
         - "User"
@@ -127,7 +191,29 @@ paths:
                   - type: object
                     properties:
                       data:
-                        type: object
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                              example: 154
+                            email:
+                              type: string
+                              example: nayla@test.com
+                            name:
+                              type: string
+                              example: Nayla Test
+                            profile_picture_url:
+                              type: string
+                              nullable: true
+                              example: null
+                            gender:
+                              type: string
+                              example: FEMALE
+                            role:
+                              type: string
+                              example: STUDENT
   /users/{id}:
     get:
       tags:
@@ -151,6 +237,26 @@ paths:
                     properties:
                       data:
                         type: object
+                        properties:
+                          id:
+                            type: integer
+                            example: 154
+                          email:
+                            type: string
+                            example: nayla@test.com
+                          name:
+                            type: string
+                            example: Nayla Test
+                          profile_picture_url:
+                            type: string
+                            nullable: true
+                            example: null
+                          gender:
+                            type: string
+                            example: FEMALE
+                          role:
+                            type: string
+                            example: STUDENT
   /courses:
     post:
       tags:

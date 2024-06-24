@@ -78,6 +78,7 @@ async function create(req, res, next) {
                 password: await bcrypt.hash(password, 10)
             }
         });
+        delete user.password;
 
         res.status(201).json({
             status: true,

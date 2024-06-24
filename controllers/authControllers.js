@@ -42,7 +42,7 @@ async function login(req, res, next) {
             status: true,
             message: 'OK',
             error: null,
-            data: { user: { ...user, token } }
+            data: { ...user, token }
         });
     } catch (err) {
         next(err);
@@ -50,6 +50,7 @@ async function login(req, res, next) {
 }
 
 async function whoami(req, res) {
+    delete req.user.iat;
     res.json({
         status: true,
         message: 'OK',

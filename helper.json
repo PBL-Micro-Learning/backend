@@ -1,0 +1,28 @@
+[
+    {
+        "id": 120,
+        "name": "Software Engineering",
+        "description": "Introduction to software engineering principles.",
+        "cover_url": "https://images.pexels.com/photos/270348/pexels-photo-270348.jpeg?auto=compress&cs=tinysrgb&w=800",
+        "lecturer": {
+            "lecturer_id": 150,
+            "lecturer_name": "Irgi Lecturer"
+        },
+        "lessons": [
+            {
+                "id": 348,
+                "title": "Software Development Life Cycle",
+                "description": "Learn about the software development life cycle.",
+                "course_id": 120,
+                "contents": [
+                    {
+                        "id": 1027,
+                        "title": "Introduction to SDLC",
+                        "body": "An overview of the software development life cycle.",
+                        "video_url": "https://www.youtube.com/watch?v=SxQEiq4NZqk",
+                    }
+                ]
+            }
+        ]
+    }
+]
