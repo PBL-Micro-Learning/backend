@@ -91,7 +91,8 @@ async function index(req, res, next) {
                 lecturer: {
                     id: course.lecturer_id,
                     name: course.lecturer_name
-                }
+                },
+                is_enrolled: false
             };
             if (course.enrollment_id) {
                 c.is_enrolled = true;
@@ -208,7 +209,8 @@ async function show(req, res, next) {
                         id: item.lecturer_id,
                         name: item.lecturer_name
                     },
-                    lessons: []
+                    lessons: [],
+                    is_enrolled: false
                 };
                 if (item.enrollment_id) {
                     c.is_enrolled = true;
