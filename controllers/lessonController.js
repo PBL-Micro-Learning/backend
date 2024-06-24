@@ -42,7 +42,7 @@ async function create(req, res, next) {
         }
 
         let lesson = await prisma.lesson.create({ data: { title, description, course_id: course.id } });
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -63,7 +63,7 @@ async function index(req, res, next) {
 
         let lessons = await prisma.lesson.findMany(filter);
 
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -87,7 +87,7 @@ async function show(req, res, next) {
             });
         }
 
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -133,7 +133,7 @@ async function update(req, res, next) {
 
         // update
         lesson = await prisma.lesson.update({ where: { id: lesson.id }, data: { title, body } });
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -176,7 +176,7 @@ async function destroy(req, res, next) {
         }
 
         await prisma.lesson.delete({ where: { id: lesson.id } });
-        return res.json({
+        return res.status(200).json({
             status: true,
             message: 'OK',
             error: null,

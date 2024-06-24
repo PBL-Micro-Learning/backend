@@ -41,16 +41,34 @@ async function create(req, res, next) {
 
 async function index(req, res, next) {
     try {
-        let { search, lecturer_id } = req.query;
+        let { search, lecturer_id, is_enrolled } = req.query;
 
         let query = `
         SELECT
             courses.*,
-            users.name AS lecturer_name
+            users.name AS lecturer_name,
+            enrollments.id AS enrollment_id,
+            (
+                SELECT COUNT(*)
+                FROM
+                    contents c
+                    INNER JOIN lessons l ON l.id = c.lesson_id
+                WHERE l.course_id = courses.id
+                GROUP BY l.course_id
+            ) AS total_contents,
+            (
+                SELECT COUNT(*)
+                FROM
+                    contents c
+                    INNER JOIN watched_contents wc ON wc.content_id = c.id
+                    INNER JOIN lessons l ON l.id = c.lesson_id
+                WHERE l.course_id = courses.id AND wc.user_id = ${req.user.id}
+                GROUP BY l.course_id
+            ) AS watched_contents
         FROM
             courses
-        INNER JOIN
-            users ON users.id = courses.lecturer_id
+            LEFT JOIN enrollments ON enrollments.course_id = courses.id AND enrollments.user_id = ${req.user.id}
+            INNER JOIN users ON users.id = courses.lecturer_id
         WHERE 1=1`;
 
         if (search) {
@@ -59,10 +77,13 @@ async function index(req, res, next) {
         if (lecturer_id) {
             query += ` AND courses.lecturer_id = ${parseInt(lecturer_id, 10)}`;
         }
+        if (is_enrolled === 'true') {
+            query += ` AND enrollments.id IS NOT NULL`;
+        }
 
         let courses = await prisma.$queryRawUnsafe(query);
         courses = courses.map(course => {
-            return {
+            let c = {
                 id: course.id,
                 name: course.name,
                 description: course.description,
@@ -72,9 +93,18 @@ async function index(req, res, next) {
                     name: course.lecturer_name
                 }
             };
+            if (course.enrollment_id) {
+                c.is_enrolled = true;
+                c.progress = {
+                    total_contents: Number(course.total_contents),
+                    watched_contents: Number(course.watched_contents),
+                    percentage: parseInt(Number(course.watched_contents) / Number(course.total_contents) * 100)
+                };
+            }
+            return c;
         });
 
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -108,13 +138,50 @@ async function show(req, res, next) {
             contents.lesson_id AS content_lesson_id,
 
             courses.lecturer_id,
-            users.name AS lecturer_name
+            users.name AS lecturer_name,
+            enrollments.id AS enrollment_id,
+
+            (
+                SELECT COUNT(*)
+                FROM
+                    contents c
+                    INNER JOIN lessons l ON l.id = c.lesson_id
+                WHERE l.course_id = courses.id
+                GROUP BY l.course_id
+            ) AS course_total_contents,
+            (
+                SELECT COUNT(*)
+                FROM
+                    contents c
+                    INNER JOIN watched_contents wc ON wc.content_id = c.id
+                    INNER JOIN lessons l ON l.id = c.lesson_id
+                WHERE l.course_id = courses.id AND wc.user_id = ${req.user.id}
+                GROUP BY l.course_id
+            ) AS course_watched_contents,
+            (
+                SELECT COUNT(*)
+                FROM
+                    contents c
+                    INNER JOIN lessons l ON l.id = c.lesson_id
+                WHERE c.lesson_id = lessons.id
+                GROUP BY c.lesson_id
+            ) AS lesson_total_contents,
+            (
+                SELECT COUNT(*)
+                FROM
+                    contents c
+                    INNER JOIN watched_contents wc ON wc.content_id = c.id
+                    INNER JOIN lessons l ON l.id = c.lesson_id
+                WHERE c.lesson_id = lessons.id AND wc.user_id = ${req.user.id}
+                GROUP BY c.lesson_id
+            ) AS lesson_watched_contents
 
         FROM 
             courses
             LEFT JOIN lessons ON lessons.course_id = courses.id
             LEFT JOIN contents ON contents.lesson_id = lessons.id
             INNER JOIN users ON users.id = courses.lecturer_id
+            LEFT JOIN enrollments ON enrollments.course_id = courses.id AND enrollments.user_id = ${req.user.id}
         WHERE
             courses.id = ${Number(id)};`);
 
@@ -132,7 +199,7 @@ async function show(req, res, next) {
         course.forEach(item => {
             // Find or create the course
             if (!coursesMap.has(item.id)) {
-                coursesMap.set(item.id, {
+                let c = {
                     id: item.id,
                     name: item.name,
                     description: item.description,
@@ -142,7 +209,16 @@ async function show(req, res, next) {
                         name: item.lecturer_name
                     },
                     lessons: []
-                });
+                };
+                if (item.enrollment_id) {
+                    c.is_enrolled = true;
+                    c.progress = {
+                        total_contents: Number(item.course_total_contents),
+                        watched_contents: Number(item.course_watched_contents),
+                        percentage: parseInt(Number(item.course_watched_contents) / Number(item.course_total_contents) * 100)
+                    };
+                }
+                coursesMap.set(item.id, c);
             }
 
             const course = coursesMap.get(item.id);
@@ -150,13 +226,21 @@ async function show(req, res, next) {
             // Find or create the lesson
             const lessonKey = `${item.lesson_id}-${item.id}`;
             if (!lessonsMap.has(lessonKey)) {
-                lessonsMap.set(lessonKey, {
+                let l = {
                     id: item.lesson_id,
                     title: item.lesson_title,
                     description: item.lesson_description,
                     course_id: item.lesson_course_id,
                     contents: []
-                });
+                };
+                if (item.enrollment_id) {
+                    l.progress = {
+                        total_contents: Number(item.lesson_total_contents),
+                        watched_contents: Number(item.lesson_watched_contents),
+                        percentage: parseInt(Number(item.lesson_watched_contents) / Number(item.lesson_total_contents) * 100)
+                    };
+                }
+                lessonsMap.set(lessonKey, l);
                 course.lessons.push(lessonsMap.get(lessonKey));
             }
 
@@ -174,7 +258,7 @@ async function show(req, res, next) {
         // Convert the courses map to an array
         const response = Array.from(coursesMap.values());
 
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -220,7 +304,7 @@ async function update(req, res, next) {
             where: { id: Number(id) },
             data: { name, description, cover_url }
         });
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -253,7 +337,7 @@ async function destroy(req, res, next) {
         }
 
         await prisma.course.delete({ where: { id: Number(id) } });
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -309,8 +393,8 @@ async function unenroll(req, res, next) {
     try {
         let { id } = req.params;
 
-        let exist = await prisma.enrollment.findFirst({ where: { course_id: course.id, user_id: req.user.id } });
-        if (!exist) {
+        let enrollment = await prisma.enrollment.findFirst({ where: { course_id: Number(id), user_id: req.user.id } });
+        if (!enrollment) {
             return res.status(400).json({
                 status: false,
                 message: 'Bad Request',
@@ -319,7 +403,7 @@ async function unenroll(req, res, next) {
             });
         }
 
-        await prisma.enrollment.delete({ where: { course_id: course.id, user_id: req.user.id } });
+        await prisma.enrollment.delete({ where: { id: enrollment.id } });
 
         return res.status(200).json({
             status: true,

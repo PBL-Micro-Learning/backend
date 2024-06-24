@@ -38,7 +38,7 @@ async function login(req, res, next) {
         delete user.password; // excluede password from user
         let token = jwt.sign(user, JWT_PRIVATE_KEY);
 
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -51,7 +51,7 @@ async function login(req, res, next) {
 
 async function whoami(req, res) {
     delete req.user.iat;
-    res.json({
+    res.status(200).json({
         status: true,
         message: 'OK',
         error: null,

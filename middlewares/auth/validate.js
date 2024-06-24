@@ -25,6 +25,7 @@ function validate(req, res, next) {
         }
 
         req.user = decoded;
+        req.user.id = Number(req.user.id);
         next();
     });
 }

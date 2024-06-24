@@ -284,6 +284,12 @@ paths:
           in: query
           name: lecturer_id
           required: false
+        - schema:
+            type: string
+          in: query
+          name: is_enrolled
+          required: false
+          description: true, false
       responses:
         200:
           description: OK
@@ -315,6 +321,17 @@ paths:
                                   type: integer
                                 name:
                                   type: string
+                            is_enrolled:
+                              type: boolean
+                            progress:
+                              type: object
+                              properties:
+                                total_contents:
+                                  type: integer
+                                watched_contents:
+                                  type: integer
+                                percentage:
+                                  type: integer
   /courses/{id}:
     get:
       tags:
@@ -356,6 +373,17 @@ paths:
                                 type: integer
                               name:
                                 type: string
+                          is_enrolled:
+                            type: boolean
+                          progress:
+                            type: object
+                            properties:
+                              total_contents:
+                                type: integer
+                              watched_contents:
+                                type: integer
+                              percentage:
+                                type: integer
                           lessons:
                             type: array
                             items:
@@ -369,6 +397,15 @@ paths:
                                   type: string
                                 course_id:
                                   type: integer
+                                progress:
+                                  type: object
+                                  properties:
+                                    total_contents:
+                                      type: integer
+                                    watched_contents:
+                                      type: integer
+                                    percentage:
+                                      type: integer
                                 contents:
                                   type: array
                                   items:
@@ -837,6 +874,33 @@ paths:
                     properties:
                       data:
                         type: object
+  /contents/{id}/watch:
+    post:
+      tags:
+        - "Content"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The content ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+   
 components:
   schemas:
     AnyValue:

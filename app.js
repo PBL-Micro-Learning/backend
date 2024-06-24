@@ -4,11 +4,13 @@ const cors = require('cors');
 const swaggerUi = require('swagger-ui-express');
 const fs = require("fs");
 const YAML = require('yaml');
+const morgan = require('morgan');
 
 const file = fs.readFileSync('./swagger.yaml', 'utf8');
 const swaggerDocument = YAML.parse(file);
 
 const app = express();
+app.use(morgan('dev'));
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
@@ -19,7 +21,7 @@ app.use('/api', router);
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 app.get('/', function (req, res) {
-    res.json({
+    res.status(200).json({
         status: true,
         message: 'welcome to micro-learning api',
         error: null,
@@ -37,6 +39,7 @@ app.use((req, res, next) => {
 });
 
 app.use((err, req, res, next) => {
+    console.log(err);
     return res.status(500).json({
         status: false,
         message: 'somethink broke!',

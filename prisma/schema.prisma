@@ -67,6 +67,14 @@ model Enrollment {
   @@map("enrollments")
 }
 
+model WatchedContent {
+  id          Int @id @default(autoincrement())
+  content_id  Int
+  user_id     Int
+
+  @@map("watched_contents")
+}
+
 model Like {
   id        Int @id @default(autoincrement())
   lesson_id Int

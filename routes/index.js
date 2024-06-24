@@ -5,39 +5,41 @@ const { auth, user, course, lesson, content } = require('../controllers');
 const { validate, isAdmin, isLecturer, isStudent } = require('../middlewares');
 
 // auth
-router.post('/auth/login', auth.login);                        // done
-router.get('/auth/whoami', validate, auth.whoami); // done
+router.post('/auth/login', auth.login);
+router.get('/auth/whoami', validate, auth.whoami);
 
 // user
-router.post('/users', validate, isAdmin, user.create); // done ~ only admin can create user
-router.get('/users', user.index);
-router.get('/users/:id', user.show);
+router.post('/users', validate, isAdmin, user.create);
+router.get('/users', validate, user.index);
+router.get('/users/:id', validate, user.show);
 router.post('/users/:id/enrollments', validate, auth.login);
 
-// course 
-router.post('/courses', validate, isLecturer, course.create);        // done
-router.get('/courses', validate, course.index);          // done
-router.get('/courses/:id', validate, course.show);       // done
-router.put('/courses/:id', validate, isLecturer, course.update);     // done
-router.delete('/courses/:id', validate, isLecturer, course.destroy); // done
 // enrollment
 router.post('/courses/:id/enroll', validate, isStudent, course.enroll);
 router.delete('/courses/:id/unenroll', validate, isStudent, course.unenroll);
 
+// course 
+router.post('/courses', validate, isLecturer, course.create);
+router.get('/courses', validate, course.index);
+router.get('/courses/:id', validate, course.show);
+router.put('/courses/:id', validate, isLecturer, course.update);
+router.delete('/courses/:id', validate, isLecturer, course.destroy);
+
+
 // lesson 
-router.post('/lessons', validate, isLecturer, lesson.create);        // done
-router.get('/lessons', validate, lesson.index);          // done
-router.get('/lessons/:id', validate, lesson.show);       // done
-router.put('/lessons/:id', validate, isLecturer, lesson.update);     // done
-router.delete('/lessons/:id', validate, isLecturer, lesson.destroy); // done
+router.post('/lessons', validate, isLecturer, lesson.create);
+router.get('/lessons', validate, lesson.index);
+router.get('/lessons/:id', validate, lesson.show);
+router.put('/lessons/:id', validate, isLecturer, lesson.update);
+router.delete('/lessons/:id', validate, isLecturer, lesson.destroy);
 
 // content
-router.post('/contents', validate, isLecturer, content.create);        // done
-router.get('/contents', validate, content.index);          // done
-router.get('/contents/:id', validate, content.show);       // done
-router.put('/contents/:id', validate, isLecturer, content.update);     // done
-router.delete('/contents/:id', validate, isLecturer, content.destroy); // done
-
+router.post('/contents', validate, isLecturer, content.create);
+router.get('/contents', validate, content.index);
+router.get('/contents/:id', validate, content.show);
+router.put('/contents/:id', validate, isLecturer, content.update);
+router.delete('/contents/:id', validate, isLecturer, content.destroy);
+router.post('/contents/:id/watch', validate, content.watch);
 
 // like
 router.get('/lessons/:id/likes', lesson.index); // get lesson likes

@@ -72,7 +72,7 @@ async function index(req, res, next) {
         }
 
         let contents = await prisma.lesson.findMany(filter);
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -96,7 +96,7 @@ async function show(req, res, next) {
             });
         }
 
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -151,7 +151,7 @@ async function update(req, res, next) {
         }
 
         content = await prisma.content.update({ where: { id: content.id }, data: { title, body, video_url } });
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
@@ -204,11 +204,47 @@ async function destroy(req, res, next) {
         }
 
         await prisma.content.delete({ where: { id: content.id } });
-        res.json({
+        res.status(200).json({
             status: true,
             message: 'OK',
             error: null,
             data: null
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function watch(req, res, next) {
+    try {
+        let { id } = req.params;
+        let content = await prisma.content.findUnique({ where: { id: Number(id) } });
+        if (!content) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'content not found!',
+                data: null
+            });
+        }
+
+        let watchedContent = await prisma.watchedContent.findFirst({ where: { user_id: req.user.id, content_id: content.id } });
+        if (watchedContent) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'content already watched!',
+                data: null
+            });
+        }
+
+        watchedContent = await prisma.watchedContent.create({ data: { user_id: req.user.id, content_id: content.id } });
+
+        res.status(201).json({
+            status: true,
+            message: 'OK',
+            error: null,
+            data: watchedContent
         });
     } catch (err) {
         next(err);
@@ -220,5 +256,6 @@ module.exports = {
     index,
     show,
     update,
-    destroy
+    destroy,
+    watch
 };
