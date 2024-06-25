@@ -749,6 +749,32 @@ paths:
                     properties:
                       data:
                         type: object
+  /quizzes/{id}:
+    delete:
+      tags:
+        - "Quiz"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The quiz ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
   /questions:
     post:
       tags:

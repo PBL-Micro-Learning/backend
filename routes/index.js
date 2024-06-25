@@ -34,7 +34,9 @@ router.delete('/lessons/:id', validate, isLecturer, lesson.destroy);
 
 // quiz
 router.post('/quizzes', validate, isLecturer, quiz.create);
+router.delete('/quizzes/:id', validate, isLecturer, quiz.destroy);
 router.post('/questions', validate, isLecturer, question.create);
+router.delete('/questions/:id', validate, isLecturer, question.destroy);
 
 // content
 router.post('/contents', validate, isLecturer, content.create);

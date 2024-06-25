@@ -47,4 +47,21 @@ async function create(req, res, next) {
     }
 }
 
-module.exports = { create };
+async function destroy(req, res, next) {
+    try {
+        const { id } = req.params;
+        const quiz = await prisma.quiz.findUnique({ where: { id: Number(id) } });
+
+        if (!quiz) {
+            return res.status(400).json({ status: false, message: 'Bad Request', error: 'quiz not found!', data: null });
+        }
+
+        await prisma.quiz.delete({ where: { id: Number(id) } });
+
+        return res.status(200).json({ status: true, message: 'Deleted', error: null, data: null });
+    } catch (err) {
+        next(err);
+    }
+}
+
+module.exports = { create, destroy };
