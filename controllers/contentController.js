@@ -71,7 +71,7 @@ async function index(req, res, next) {
             filter.where = { lesson_id: Number(lesson_id) };
         }
 
-        let contents = await prisma.lesson.findMany(filter);
+        let contents = await prisma.content.findMany(filter);
         res.status(200).json({
             status: true,
             message: 'OK',
