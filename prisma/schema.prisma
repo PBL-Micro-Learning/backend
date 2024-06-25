@@ -68,9 +68,9 @@ model Enrollment {
 }
 
 model WatchedContent {
-  id          Int @id @default(autoincrement())
-  content_id  Int
-  user_id     Int
+  id         Int @id @default(autoincrement())
+  content_id Int
+  user_id    Int
 
   @@map("watched_contents")
 }
@@ -90,4 +90,46 @@ model Comment {
   content   String
 
   @@map("comments")
+}
+
+model Quiz {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String?
+  lesson_id   Int
+
+  @@map("quizzes")
+}
+
+model Question {
+  id      Int           @id @default(autoincrement())
+  quiz_id Int
+  content String
+  answer  AnswerOptions
+
+  @@map("questions")
+}
+
+model Option {
+  id          Int           @id @default(autoincrement())
+  question_id Int
+  content     String
+  mark        AnswerOptions
+
+  @@map("options")
+}
+
+enum AnswerOptions {
+  A
+  B
+  C
+  D
+}
+
+model Answer {
+  id          Int           @id @default(autoincrement())
+  question_id Int
+  content     AnswerOptions
+
+  @@map("answers")
 }

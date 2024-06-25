@@ -715,6 +715,108 @@ paths:
                     properties:
                       data:
                         type: object
+  /quizzes:
+    post:
+      tags:
+        - "Quiz"
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  example: Hewan Peliharaan
+                description:
+                  type: string
+                  example: Quiz tentang hewan peliharaan
+                lesson_id:
+                  type: integer
+                  example: 1
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+  /questions:
+    post:
+      tags:
+        - "Quiz"
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quiz_id:
+                  type: integer
+                  example: 1
+                content:
+                  type: string
+                  example: Apa warna hewan peliharaan?
+                options:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      content:
+                        type: string
+                        example: Merah
+                      is_correct:
+                        type: boolean
+                        example: false  
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
+  /questions/{id}:
+    delete:
+      tags:
+        - "Quiz"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The question ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
   /contents:
     post:
       tags:
@@ -900,7 +1002,7 @@ paths:
                     properties:
                       data:
                         type: object
-   
+
 components:
   schemas:
     AnyValue:
