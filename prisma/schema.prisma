@@ -76,18 +76,20 @@ model WatchedContent {
 }
 
 model Like {
-  id        Int @id @default(autoincrement())
-  lesson_id Int
-  user_id   Int
+  id         Int      @id @default(autoincrement())
+  content_id Int
+  user_id    Int
+  date       DateTime
 
   @@map("likes")
 }
 
 model Comment {
-  id        Int    @id @default(autoincrement())
-  lesson_id Int
-  user_id   Int
-  content   String
+  id         Int      @id @default(autoincrement())
+  content_id Int
+  user_id    Int
+  content    String
+  date       DateTime
 
   @@map("comments")
 }

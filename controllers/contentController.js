@@ -251,11 +251,114 @@ async function watch(req, res, next) {
     }
 }
 
+async function like(req, res, next) {
+    try {
+        let { id } = req.params;
+        let content = await prisma.content.findUnique({ where: { id: Number(id) } });
+        if (!content) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'content not found!',
+                data: null
+            });
+        }
+
+        let like = await prisma.like.findFirst({ where: { content_id: content.id, user_id: req.user.id } });
+        if (like) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'you already liked this content!',
+                data: null
+            });
+        }
+
+        like = await prisma.like.create({ data: { content_id: content.id, user_id: req.user.id } });
+
+        res.status(201).json({
+            status: true,
+            message: 'OK',
+            error: null,
+            data: like
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function unlike(req, res, next) {
+    try {
+        let { id } = req.params;
+        let content = await prisma.content.findUnique({ where: { id: Number(id) } });
+        if (!content) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'content not found!',
+                data: null
+            });
+        }
+
+        let like = await prisma.like.findFirst({ where: { content_id: content.id, user_id: req.user.id } });
+        if (!like) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'you have not liked this content!',
+                data: null
+            });
+        }
+
+        await prisma.like.delete({ where: { id: like.id } });
+
+        res.status(200).json({
+            status: true,
+            message: 'OK',
+            error: null,
+            data: null
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
+async function comment(req, res, next) {
+    try {
+        let { id } = req.params;
+        let { content } = req.body;
+
+        let c = await prisma.content.findUnique({ where: { id: Number(id) } });
+        if (!c) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'content not found!',
+                data: null
+            });
+        }
+
+        let comment = await prisma.comment.create({ data: { content, user_id: req.user.id, content_id: c.id } });
+
+        res.status(201).json({
+            status: true,
+            message: 'OK',
+            error: null,
+            data: comment
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     create,
     index,
     show,
     update,
     destroy,
-    watch
+    watch,
+    like,
+    unlike,
+    comment
 };

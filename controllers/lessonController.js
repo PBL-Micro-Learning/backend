@@ -187,6 +187,41 @@ async function destroy(req, res, next) {
     }
 }
 
+async function like(req, res, next) {
+    try {
+        let { id } = req.params;
+        let lesson = await prisma.lesson.findUnique({ where: { id: Number(id) } });
+        if (!lesson) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'lesson not found!',
+                data: null
+            });
+        }
+
+        let like = await prisma.like.findFirst({ where: { lesson_id: lesson.id, user_id: req.user.id } });
+        if (like) {
+            return res.status(400).json({
+                status: false,
+                message: 'Bad Request',
+                error: 'you already liked this lesson!',
+                data: null
+            });
+        }
+
+        like = await prisma.like.create({ data: { lesson_id: lesson.id, user_id: req.user.id } });
+        res.status(200).json({
+            status: true,
+            message: 'OK',
+            error: null,
+            data: like
+        });
+    } catch (err) {
+        next(err);
+    }
+}
+
 module.exports = {
     create,
     index,

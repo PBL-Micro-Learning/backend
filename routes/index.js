@@ -45,15 +45,8 @@ router.get('/contents/:id', validate, content.show);
 router.put('/contents/:id', validate, isLecturer, content.update);
 router.delete('/contents/:id', validate, isLecturer, content.destroy);
 router.post('/contents/:id/watch', validate, content.watch);
-
-// like
-router.get('/lessons/:id/likes', lesson.index); // get lesson likes
-router.post('/lessons/:id/likes', lesson.index); // like lesson
-router.delete('/lessons/:id/likes', lesson.index); // unlike lesson
-// comment
-router.get('/lessons/:id/comments', lesson.index); // get lesson comments
-router.post('/lessons/:id/comments', lesson.index); // comment lesson
-router.put('/lessons/:id/comments/:id', lesson.index); // update comment lesson
-router.delete('/lessons/:id/comments/:id', lesson.index); // remove comment lesson
+router.post('/contents/:id/like', validate, content.like);
+router.delete('/contents/:id/unlike', validate, content.unlike);
+router.post('/contents/:id/comment', validate, content.comment);
 
 module.exports = router;
