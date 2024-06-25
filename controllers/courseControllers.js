@@ -175,14 +175,21 @@ async function show(req, res, next) {
                     INNER JOIN lessons l ON l.id = c.lesson_id
                 WHERE c.lesson_id = lessons.id AND wc.user_id = ${req.user.id}
                 GROUP BY c.lesson_id
-            ) AS lesson_watched_contents
-
+            ) AS lesson_watched_contents,
+            (
+                SELECT COUNT(*) FROM likes WHERE content_id = contents.id GROUP BY content_id
+            ) likes_count,
+            CASE
+                WHEN likes.id IS NOT NULL THEN true
+                ELSE false
+            END AS is_liked
         FROM 
             courses
             LEFT JOIN lessons ON lessons.course_id = courses.id
             LEFT JOIN contents ON contents.lesson_id = lessons.id
             INNER JOIN users ON users.id = courses.lecturer_id
             LEFT JOIN enrollments ON enrollments.course_id = courses.id AND enrollments.user_id = ${req.user.id}
+            LEFT JOIN likes ON likes.content_id = contents.id AND likes.user_id = ${req.user.id}
         WHERE
             courses.id = ${Number(id)};`);
 
@@ -194,6 +201,32 @@ async function show(req, res, next) {
                 data: null
             });
         }
+
+        let comments = await prisma.$queryRawUnsafe(`
+        SELECT comments.*, users.name AS user_name, users.profile_picture_url
+            FROM comments
+            INNER JOIN contents ON contents.id = comments.content_id
+            INNER JOIN lessons ON lessons.id = contents.lesson_id
+            INNER JOIN users ON users.id = comments.user_id
+        WHERE lessons.course_id = 1
+        ORDER BY comments.date;`);
+
+        let commentsMap = {};
+        comments.forEach(comment => {
+            if (!commentsMap[comment.content_id]) {
+                commentsMap[comment.content_id] = [];
+            }
+            commentsMap[comment.content_id].push({
+                id: comment.id,
+                user: {
+                    id: comment.user_id,
+                    name: comment.user_name,
+                    profile_picture_url: comment.profile_picture_url
+                },
+                content: comment.content,
+                date: comment.date
+            });
+        });
 
         const coursesMap = new Map();
         const lessonsMap = new Map();
@@ -253,7 +286,10 @@ async function show(req, res, next) {
                 id: item.content_id,
                 title: item.content_title,
                 body: item.content_body,
-                video_url: item.content_video_url
+                video_url: item.content_video_url,
+                is_liked: item.is_liked,
+                likes_count: Number(item.likes_count),
+                comments: commentsMap[item.content_id] || []
             });
         });
 
