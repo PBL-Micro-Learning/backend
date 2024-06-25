@@ -287,8 +287,8 @@ async function show(req, res, next) {
                 title: item.content_title,
                 body: item.content_body,
                 video_url: item.content_video_url,
-                is_liked: item.is_liked,
                 likes_count: Number(item.likes_count),
+                likes: item.is_liked,
                 comments: commentsMap[item.content_id] || []
             });
         });
