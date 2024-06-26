@@ -1,5 +1,5 @@
 const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({ log: ['query'] });
 
 async function create(req, res, next) {
     try {
@@ -86,8 +86,21 @@ async function index(req, res, next) {
 async function show(req, res, next) {
     try {
         let { id } = req.params;
-        let content = await prisma.content.findUnique({ where: { id: Number(id) } });
-        if (!content) {
+        // let content = await prisma.content.findUnique({ where: { id: Number(id) } });
+        let contents = await prisma.$queryRawUnsafe(`
+            SELECT contents.*,
+                lessons.course_id,
+                (
+                    SELECT COUNT(*) FROM likes WHERE content_id = contents.id GROUP BY content_id
+                ) likes_count,
+                CASE
+                    WHEN likes.id IS NOT NULL THEN true
+                    ELSE false
+                END AS is_liked
+            FROM contents
+                LEFT JOIN lessons ON lessons.id = contents.lesson_id
+                LEFT JOIN likes ON likes.content_id = contents.id AND likes.user_id = ${req.user.id};`);
+        if (!contents.length) {
             return res.status(400).json({
                 status: false,
                 message: 'Bad Request',
@@ -95,6 +108,37 @@ async function show(req, res, next) {
                 data: null
             });
         }
+
+        let comments = await prisma.$queryRawUnsafe(`
+        SELECT comments.*, users.name AS user_name, users.profile_picture_url
+            FROM comments
+            INNER JOIN users ON users.id = comments.user_id
+        WHERE comments.content_id = ${Number(id)}
+        ORDER BY comments.date;`);
+
+        let content = {
+            id: contents[0].id,
+            title: contents[0].title,
+            body: contents[0].body,
+            video_url: contents[0].video_url,
+            likes_count: Number(contents[0].likes_count),
+            likes: contents[0].is_liked,
+            lesson_id: contents[0].lesson_id,
+            course_id: contents[0].course_id,
+            comments: comments.map(c => {
+                return {
+                    id: c.comment_id,
+                    user: {
+                        id: c.user_id,
+                        name: c.user_name,
+                        profile_picture_url: c.profile_picture_url
+                    },
+                    content: c.comment_content,
+                    date: c.comment_date
+                };
+
+            })
+        };
 
         res.status(200).json({
             status: true,
