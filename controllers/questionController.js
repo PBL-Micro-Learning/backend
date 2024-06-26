@@ -68,5 +68,38 @@ async function destroy(req, res, next) {
     }
 }
 
+async function answer(req, res, next) {
+    try {
+        const { id } = req.params;
+        const { answer } = req.body;
+        const question = await prisma.question.findUnique({ where: { id: Number(id) } });
+        if (!question) {
+            return res.status(400).json({ status: false, message: 'Bad Request', error: 'question not found!', data: null });
+        }
 
-module.exports = { create, destroy };
+        const marks = [AnswerOptions.A, AnswerOptions.B, AnswerOptions.C, AnswerOptions.D];
+        if (!marks.includes(answer)) {
+            return res.status(400).json({ status: false, message: 'Bad Request', error: 'invalid answer!', data: null });
+        }
+
+        let answered = await prisma.answer.findFirst({ where: { user_id: req.user.id, question_id: question.id } });
+        if (answered) {
+            return res.status(400).json({ status: false, message: 'Bad Request', error: 'question already answered!', data: null });
+        }
+
+        await prisma.answer.create({
+            data: {
+                user_id: req.user.id,
+                question_id: question.id,
+                answer
+            }
+        });
+
+        return res.status(200).json({ status: true, message: 'Correct', error: null, data: null });
+    } catch (err) {
+        next(err);
+    }
+}
+
+
+module.exports = { create, destroy, answer };
