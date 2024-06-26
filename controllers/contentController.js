@@ -133,8 +133,8 @@ async function show(req, res, next) {
                         name: c.user_name,
                         profile_picture_url: c.profile_picture_url
                     },
-                    content: c.comment_content,
-                    date: c.comment_date
+                    content: c.content,
+                    date: c.date
                 };
 
             })
