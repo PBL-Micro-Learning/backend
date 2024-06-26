@@ -71,14 +71,14 @@ async function destroy(req, res, next) {
 async function answer(req, res, next) {
     try {
         const { id } = req.params;
-        const { answer } = req.body;
+        const { mark } = req.body;
         const question = await prisma.question.findUnique({ where: { id: Number(id) } });
         if (!question) {
             return res.status(400).json({ status: false, message: 'Bad Request', error: 'question not found!', data: null });
         }
 
         const marks = [AnswerOptions.A, AnswerOptions.B, AnswerOptions.C, AnswerOptions.D];
-        if (!marks.includes(answer)) {
+        if (!marks.includes(mark)) {
             return res.status(400).json({ status: false, message: 'Bad Request', error: 'invalid answer!', data: null });
         }
 
@@ -91,7 +91,7 @@ async function answer(req, res, next) {
             data: {
                 user_id: req.user.id,
                 question_id: question.id,
-                answer
+                mark
             }
         });
 
