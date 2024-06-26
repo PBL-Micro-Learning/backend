@@ -79,7 +79,7 @@ model Like {
   id         Int      @id @default(autoincrement())
   content_id Int
   user_id    Int
-  date       DateTime
+  date       DateTime? @default(now())
 
   @@map("likes")
 }
@@ -89,7 +89,7 @@ model Comment {
   content_id Int
   user_id    Int
   content    String
-  date       DateTime
+  date       DateTime? @default(now())
 
   @@map("comments")
 }
