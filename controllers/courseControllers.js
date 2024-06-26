@@ -208,7 +208,7 @@ async function show(req, res, next) {
             INNER JOIN contents ON contents.id = comments.content_id
             INNER JOIN lessons ON lessons.id = contents.lesson_id
             INNER JOIN users ON users.id = comments.user_id
-        WHERE lessons.course_id = 1
+        WHERE lessons.course_id = ${Number(id)}
         ORDER BY comments.date;`);
 
         let commentsMap = {};
