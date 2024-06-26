@@ -397,6 +397,8 @@ paths:
                                   type: string
                                 course_id:
                                   type: integer
+                                quiz_id:
+                                  type: integer
                                 progress:
                                   type: object
                                   properties:

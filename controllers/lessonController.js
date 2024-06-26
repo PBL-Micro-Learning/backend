@@ -87,6 +87,13 @@ async function show(req, res, next) {
             });
         }
 
+        let quiz = await prisma.quiz.findFirst({ where: { lesson_id: lesson.id } });
+        if (quiz) {
+            lesson.quiz_id = quiz.id;
+        } else {
+            lesson.quiz_id = null;
+        }
+
         res.status(200).json({
             status: true,
             message: 'OK',

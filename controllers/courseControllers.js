@@ -131,6 +131,7 @@ async function show(req, res, next) {
             lessons.title AS lesson_title,
             lessons.description AS lesson_description,
             lessons.course_id AS lesson_course_id,
+            quizzes.id AS lesson_quiz_id,
 
             contents.id AS content_id,
             contents.title AS content_title,
@@ -190,6 +191,7 @@ async function show(req, res, next) {
             INNER JOIN users ON users.id = courses.lecturer_id
             LEFT JOIN enrollments ON enrollments.course_id = courses.id AND enrollments.user_id = ${req.user.id}
             LEFT JOIN likes ON likes.content_id = contents.id AND likes.user_id = ${req.user.id}
+            LEFT JOIN quizzes ON quizzes.lesson_id = lessons.id
         WHERE
             courses.id = ${Number(id)};`);
 
@@ -266,6 +268,7 @@ async function show(req, res, next) {
                     title: item.lesson_title,
                     description: item.lesson_description,
                     course_id: item.lesson_course_id,
+                    quiz_id: item.lesson_quiz_id,
                     contents: []
                 };
                 if (item.enrollment_id) {
