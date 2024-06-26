@@ -775,7 +775,53 @@ paths:
                     properties:
                       data:
                         type: object
+    get:
+      tags:
+        - "Quiz"
+      # parameters:
+      #   - schema:
+      #       type: integer
+      #     in: query
+      #     name: lecturer_id
+      #     required: false
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          type: object
   /quizzes/{id}:
+    get:
+      tags:
+        - "Quiz"
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+            minimum: 1
+          description: The quiz ID
+      responses:
+        200:
+          description: OK
+          content:
+            application/json:
+              schema:
+                allOf:
+                  - $ref: "#/components/schemas/BasicResponse"
+                  - type: object
+                    properties:
+                      data:
+                        type: object
     delete:
       tags:
         - "Quiz"
