@@ -76,7 +76,7 @@ model WatchedContent {
 }
 
 model Like {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   content_id Int
   user_id    Int
   date       DateTime? @default(now())
@@ -85,7 +85,7 @@ model Like {
 }
 
 model Comment {
-  id         Int      @id @default(autoincrement())
+  id         Int       @id @default(autoincrement())
   content_id Int
   user_id    Int
   content    String
@@ -131,7 +131,8 @@ enum AnswerOptions {
 model Answer {
   id          Int           @id @default(autoincrement())
   question_id Int
-  content     AnswerOptions
+  user_id     Int
+  mark     AnswerOptions
 
   @@map("answers")
 }
