@@ -185,4 +185,4 @@ class UserBehavior(TaskSet):
 class WebsiteUser(HttpUser):
     tasks = [UserBehavior]
     wait_time = between(1, 5)
-    host = "https://micro-learning.up.railway.app"
+    host = "https://pbl-micro-learling.up.railway.app"
