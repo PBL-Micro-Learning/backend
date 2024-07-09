@@ -90,6 +90,39 @@ async function show(req, res, next) {
         let quiz = await prisma.quiz.findFirst({ where: { lesson_id: lesson.id } });
         if (quiz) {
             lesson.quiz_id = quiz.id;
+
+            let results = await prisma.$queryRawUnsafe(`
+            SELECT
+                (
+                    SELECT CAST(COUNT(*) AS INTEGER)
+                    FROM 
+                        quizzes qz
+                        INNER JOIN questions q ON q.quiz_id = qz.id
+                    WHERE qz.lesson_id = ${Number(id)}
+                ) AS quiz_question_count,
+                (
+                    SELECT CAST(COUNT(*) AS INTEGER)
+                    FROM 
+                        quizzes qz
+                        INNER JOIN questions q ON q.quiz_id = qz.id
+                        INNER JOIN answers a ON a.question_id = q.id
+                    WHERE q.answer = a.mark AND a.user_id = ${req.user.id} AND qz.lesson_id = ${Number(id)}
+                ) AS quiz_correct_answer_count,
+                (
+                    SELECT CAST(COUNT(*) AS INTEGER)
+                    FROM 
+                        quizzes qz
+                        INNER JOIN questions q ON q.quiz_id = qz.id
+                        INNER JOIN answers a ON a.question_id = q.id
+                    WHERE q.answer != a.mark AND a.user_id = ${req.user.id} AND qz.lesson_id = ${Number(id)}
+                ) AS quiz_wrong_answer_count`);
+
+            lesson.quiz_results = {
+                question_count: results[0].quiz_question_count,
+                correct_answer_count: results[0].quiz_correct_answer_count,
+                wrong_answer_count: results[0].quiz_wrong_answer_count,
+                correct_answer_ratio: results[0].quiz_question_count > 0 ? (results[0].quiz_correct_answer_count / results[0].quiz_question_count) * 100 : 0
+            };
         } else {
             lesson.quiz_id = null;
         }

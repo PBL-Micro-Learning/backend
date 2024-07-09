@@ -126,25 +126,21 @@ async function show(req, res, next) {
             courses.name,
             courses.description,
             courses.cover_url,
-
             lessons.id AS lesson_id,
             lessons.title AS lesson_title,
             lessons.description AS lesson_description,
             lessons.course_id AS lesson_course_id,
             quizzes.id AS lesson_quiz_id,
-
             contents.id AS content_id,
             contents.title AS content_title,
             contents.body AS content_body,
             contents.video_url AS content_video_url,
             contents.lesson_id AS content_lesson_id,
-
             courses.lecturer_id,
             users.name AS lecturer_name,
             enrollments.id AS enrollment_id,
-
             (
-                SELECT COUNT(*)
+                SELECT CAST(COUNT(*) AS INTEGER)
                 FROM
                     contents c
                     INNER JOIN lessons l ON l.id = c.lesson_id
@@ -152,7 +148,7 @@ async function show(req, res, next) {
                 GROUP BY l.course_id
             ) AS course_total_contents,
             (
-                SELECT COUNT(*)
+                SELECT CAST(COUNT(*) AS INTEGER)
                 FROM
                     contents c
                     INNER JOIN watched_contents wc ON wc.content_id = c.id
@@ -161,7 +157,7 @@ async function show(req, res, next) {
                 GROUP BY l.course_id
             ) AS course_watched_contents,
             (
-                SELECT COUNT(*)
+                SELECT CAST(COUNT(*) AS INTEGER)
                 FROM
                     contents c
                     INNER JOIN lessons l ON l.id = c.lesson_id
@@ -169,7 +165,7 @@ async function show(req, res, next) {
                 GROUP BY c.lesson_id
             ) AS lesson_total_contents,
             (
-                SELECT COUNT(*)
+                SELECT CAST(COUNT(*) AS INTEGER)
                 FROM
                     contents c
                     INNER JOIN watched_contents wc ON wc.content_id = c.id
@@ -178,12 +174,42 @@ async function show(req, res, next) {
                 GROUP BY c.lesson_id
             ) AS lesson_watched_contents,
             (
-                SELECT COUNT(*) FROM likes WHERE content_id = contents.id GROUP BY content_id
-            ) likes_count,
+                SELECT CAST(COUNT(*) AS INTEGER)
+                FROM
+                    likes
+                WHERE content_id = contents.id
+                GROUP BY content_id
+            ) AS likes_count,
             CASE
                 WHEN likes.id IS NOT NULL THEN true
                 ELSE false
-            END AS is_liked
+            END AS is_liked,
+            (
+                SELECT CAST(COUNT(*) AS INTEGER)
+                FROM 
+                    quizzes qz
+                    INNER JOIN lessons l ON l.id = qz.lesson_id
+                    INNER JOIN questions q ON q.quiz_id = qz.id
+                WHERE l.course_id = ${Number(id)}
+            ) AS quiz_question_count,
+            (
+                SELECT CAST(COUNT(*) AS INTEGER)
+                FROM 
+                    quizzes qz
+                    INNER JOIN lessons l ON l.id = qz.lesson_id
+                    INNER JOIN questions q ON q.quiz_id = qz.id
+                    INNER JOIN answers a ON a.question_id = q.id
+                WHERE q.answer = a.mark AND a.user_id = ${req.user.id} AND l.course_id = ${Number(id)}
+            ) AS quiz_correct_answer_count,
+            (
+                SELECT CAST(COUNT(*) AS INTEGER)
+                FROM 
+                    quizzes qz
+                    INNER JOIN lessons l ON l.id = qz.lesson_id
+                    INNER JOIN questions q ON q.quiz_id = qz.id
+                    INNER JOIN answers a ON a.question_id = q.id
+                WHERE q.answer != a.mark AND a.user_id = ${req.user.id} AND l.course_id = ${Number(id)}
+            ) AS quiz_wrong_answer_count
         FROM 
             courses
             LEFT JOIN lessons ON lessons.course_id = courses.id
@@ -269,6 +295,12 @@ async function show(req, res, next) {
                     description: item.lesson_description,
                     course_id: item.lesson_course_id,
                     quiz_id: item.lesson_quiz_id,
+                    quiz_results: {
+                        question_count: Number(item.quiz_question_count),
+                        correct_answer_count: Number(item.quiz_correct_answer_count),
+                        wrong_answer_count: Number(item.quiz_wrong_answer_count),
+                        correct_answer_ratio: parseInt(Number(item.quiz_correct_answer_count) * 100 / Number(item.quiz_question_count))
+                    },
                     contents: []
                 };
                 if (item.enrollment_id) {
