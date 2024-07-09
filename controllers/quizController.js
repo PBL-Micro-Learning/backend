@@ -38,6 +38,53 @@ async function show(req, res, next) {
             return res.status(400).json({ status: false, message: 'Bad Request', error: 'quiz not found!', data: null });
         }
 
+        let results = await prisma.$queryRawUnsafe(`
+            WITH correct_answers AS (
+                SELECT
+                    qz.id AS quiz_id,
+                    a.user_id,
+                    CAST(COUNT(*) AS INTEGER) AS correct_answer_count
+                FROM quizzes qz
+                INNER JOIN questions q ON q.quiz_id = qz.id
+                INNER JOIN answers a ON a.question_id = q.id
+                WHERE q.answer = a.mark
+                GROUP BY qz.id, a.user_id
+            ),
+            wrong_answers AS (
+                SELECT
+                    qz.id AS quiz_id,
+                    a.user_id,
+                    CAST(COUNT(*) AS INTEGER) AS wrong_answer_count
+                FROM quizzes qz
+                INNER JOIN questions q ON q.quiz_id = qz.id
+                INNER JOIN answers a ON a.question_id = q.id
+                WHERE q.answer != a.mark
+                GROUP BY qz.id, a.user_id
+            ),
+            question_counts AS (
+                SELECT
+                    qz.id AS quiz_id,
+                    CAST(COUNT(*) AS INTEGER) AS question_count
+                FROM quizzes qz
+                INNER JOIN questions q ON q.quiz_id = qz.id
+                GROUP BY qz.id
+            )
+            SELECT
+                u.id AS user_id,
+                u.name AS user_name,
+                COALESCE(qc.question_count, 0) AS question_count,
+                COALESCE(ca.correct_answer_count, 0) AS correct_answer_count,
+                COALESCE(wa.wrong_answer_count, 0) AS wrong_answer_count,
+                COALESCE(CAST((ca.correct_answer_count * 100.0 / NULLIF(qc.question_count, 0)) AS INTEGER), 0) AS correct_answer_ratio
+            FROM quizzes q
+            INNER JOIN lessons l ON l.id = q.lesson_id
+            INNER JOIN enrollments e ON e.course_id = l.course_id
+            INNER JOIN users u ON u.id = e.user_id
+            LEFT JOIN correct_answers ca ON ca.user_id = u.id AND ca.quiz_id = q.id
+            LEFT JOIN wrong_answers wa ON wa.user_id = u.id AND ca.quiz_id = q.id
+            LEFT JOIN question_counts qc ON qc.quiz_id = q.id
+            WHERE q.id = ${quiz.id};`);
+
         let questions = await prisma.$queryRawUnsafe(`
             SELECT
                 questions.id,
@@ -75,7 +122,7 @@ async function show(req, res, next) {
             });
         });
 
-        return res.status(200).json({ status: true, message: 'OK', error: null, data: { ...quiz, questions: Array.from(questionMap.values()) } });
+        return res.status(200).json({ status: true, message: 'OK', error: null, data: { ...quiz, results, questions: Array.from(questionMap.values()) } });
     } catch (err) {
         next(err);
     }
