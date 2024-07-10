@@ -295,14 +295,16 @@ async function show(req, res, next) {
                     description: item.lesson_description,
                     course_id: item.lesson_course_id,
                     quiz_id: item.lesson_quiz_id,
-                    quiz_results: {
+                    contents: []
+                };
+                if (item.lesson_quiz_id) {
+                    l.quiz_results = {
                         question_count: Number(item.quiz_question_count),
                         correct_answer_count: Number(item.quiz_correct_answer_count),
                         wrong_answer_count: Number(item.quiz_wrong_answer_count),
                         correct_answer_ratio: parseInt(Number(item.quiz_correct_answer_count) * 100 / Number(item.quiz_question_count))
-                    },
-                    contents: []
-                };
+                    };
+                }
                 if (item.enrollment_id) {
                     l.progress = {
                         total_contents: Number(item.lesson_total_contents),
