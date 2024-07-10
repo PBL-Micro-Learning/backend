@@ -99,7 +99,9 @@ async function show(req, res, next) {
                 END AS is_liked
             FROM contents
                 LEFT JOIN lessons ON lessons.id = contents.lesson_id
-                LEFT JOIN likes ON likes.content_id = contents.id AND likes.user_id = ${req.user.id};`);
+                LEFT JOIN likes ON likes.content_id = contents.id AND likes.user_id = ${req.user.id}
+            WHERE
+                contents.id = ${id};`);
         if (!contents.length) {
             return res.status(400).json({
                 status: false,
